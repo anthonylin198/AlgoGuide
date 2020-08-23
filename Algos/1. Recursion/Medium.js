@@ -1,4 +1,4 @@
-// Todo 1 (Medium): Write a function that tkes in an array of unique integers and returns its powerset
+// Todo 1 (Medium): Write a function that tkes in an array of unique integers and returns its powersets
 // ! TAKEAWAYS:
 // ? Solution 1: Time Complexity O(N) and Space Complexity O(N)
 function powerset(array, idx = null) {
