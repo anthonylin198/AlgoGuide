@@ -54,7 +54,6 @@ function powerset3(array) {
 // Todo 1 (Medium): Write a function that takes in a special array and returns its product sum. The product sum of a "special" array is the sum of its elements
 // ! TAKEAWAYS:
 // ? Solution 1: Time Complexity O(N) and Space Complexity O(N)
-
 function productSum(array, multiplier = 1) {
   let sum = 0;
   for (const element of array) {
@@ -86,15 +85,25 @@ function productSum2(array) {
 }
 
 // console.log(productSum2([5, 2, [7, -1], 3, [6, [-13, 8], 4]]));
-
+// input: [1,2,3]
+// Sample Output: [[1,2,3], [1,3,2]... etc...]
 function getPermutations(array) {
-  const perm = [];
+  const permutations = [];
 
-  const permHelper = (array) => {
-    // just have on change on each
-  };
-  permHelper();
-  return perm;
+  // create iffe helper function to populate perm
+  (function generate(arr = array, currentPermutation = []) {
+    if (arr.length && currentPermutation.length) {
+      permutations.push(currentPermutation);
+    } else {
+      let innerArr = [];
+      for (let i = 0; i < arr.length; i++) {
+        innerArr.push(arr[i]);
+        generate(arr, currentPermutation);
+      }
+    }
+  })();
+
+  return permutations;
 }
 
 // console.log(getPermutations([1, 2, 3]));
@@ -102,8 +111,8 @@ function getPermutations(array) {
 // ! Marcus HHT example -- not going through array just using a string
 function htPermutations(m, n) {
   const result = [];
-  heads = m;
-  tails = n;
+  let heads = m;
+  let tails = n;
   // iffy - immediately invoked
   (function generate(str = "", m = heads, n = tails) {
     if (m === 0 && n === 0) return result.push(str);
@@ -116,7 +125,7 @@ function htPermutations(m, n) {
   return result;
 }
 
-console.log(htPermutations(1, 2));
+// console.log(htPermutations(1, 2));
 
 //! Marcus example
 function partitionNumber(num) {
@@ -125,7 +134,7 @@ function partitionNumber(num) {
 
   (function generate(count = 1, target = num) {
     if (target === 0) {
-      return result.push(current.slice());
+      return result.push(current.slice()); // why current.slice
     }
     if (target < count) {
       return;
@@ -142,4 +151,6 @@ function partitionNumber(num) {
   return result;
 }
 
-console.log(partitionNumber(4));
+// console.log(partitionNumber(4));
+
+// using memoize to avoid that brute force
