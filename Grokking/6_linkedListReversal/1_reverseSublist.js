@@ -1,5 +1,6 @@
 // Given the head of a linkedlist and two positings p and q, reverse the linked list from position p to q
 
+// Time Complexity is O(N) with O(1) time
 class Node {
   // the data
   constructor(value, next = null) {
