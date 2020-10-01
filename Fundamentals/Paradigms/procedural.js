@@ -2,7 +2,7 @@
 const form = document.getElementById('user-input');
 
 
-// Step by step execution
+// Step by step execution is procedural, think of different steps
 function signupHandler(event) {
   event.preventDefault();
   const userNameInput = document.getElementById('username');
