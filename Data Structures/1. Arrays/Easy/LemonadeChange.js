@@ -6,4 +6,8 @@
 // Output: true -- Since can provide all customers with the correct change
 
 // ! Solution 1: Keep track of the bills we have on hand -- using an object/hashtable -- If posibble, always get rid of our largest bills first, keeping our 5s.
-// !
+
+
+// each lemonade costs $5, and orders from you, we need to return true if can provide correct change to all customers
+
+// whenever we have the ability to provide change, start with the larger number
