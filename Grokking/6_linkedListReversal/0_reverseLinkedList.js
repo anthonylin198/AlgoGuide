@@ -16,9 +16,11 @@ class Node {
       process.stdout.write(`${temp.value} `);
       temp = temp.next;
     }
-    console.log();
+    console.log(); // just logging a line
   }
 }
+
+// reverse the linkedList
 function reverse(head) {
   let current = head,
     previous = null;
