@@ -10,6 +10,7 @@ class TreeNode {
     this.val = val; this.left = left; this.right = right;
   }
 }
+
 function hasPath(root, sum) {
   if (root === null) {
     return false;
