@@ -3,7 +3,9 @@
 // Output: true - after applying backspaces both become xz
 
 // Solution: use pointers starting at the end of both these strings, and compare the characters. If it is a #, then we can just skip to a character that can be compared
-
+// The time complexity of the above algorithm will be O(M + N ) where ‘M’ and ‘N’ are the lengths of the two input strings respectively.
+// Space complexity #
+// The algorithm runs in constant space O(1).
 function backspace_compare(str1, str2) {
   // use two pointer approach to compare the strings 
   let index1 = str1.length - 1,
