@@ -39,7 +39,8 @@ function twoNumbersum2(array, targetSum) {
 
 
 // O(nlog(n)) | O(1) space 
-// Using the 2 pointer approach, first need to sort to be able to implement. 
+// Using the 2 pointer approach, first need to sort to be able to implement. - 2
+// 2 POINTER APPROACH ONLY WORKS FOR SORTED ARRAYS
 function twoNumberSum3(array, targetSum) {
   array.sort((a, b) => a - b); // time complexity is O(logn)
   let left = 0;
