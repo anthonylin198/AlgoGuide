@@ -1,5 +1,7 @@
 // ! Keep functions pure without sideeffects, and look into filter vs map vs reduce vs foreach
 
+// Literally don't have a single let
+
 
 // todo: forEach - for every element on the array, we are calling a callback function which gets element and its index. Works as a traditional for loop looping over the array and proving array elements to do operatons on them
 const sample = [1, 2, 3];
