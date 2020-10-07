@@ -8,6 +8,7 @@ class Node {
     this.prev = null; // the previous makes this a doubly linkedlist
     this.next = null;
   }
+
 }
 
 //
@@ -15,6 +16,19 @@ class DoublyLinkedList {
   constructor() {
     this.head = null;
     this.tail = null;
+  }
+
+
+  // print out values in linked list
+  print_list() {
+    console.log("here")
+    let node = this.head;
+    const arr = [];
+    while (node) {
+      arr.push(node.value)
+      node = node.next;
+    }
+    console.log(arr)
   }
 
   // should shift a value to the head
@@ -54,19 +68,23 @@ class DoublyLinkedList {
     node.prev = nodeToInsert;
   }
 
-  insertAfter(node, nodeToInsert) {}
+  insertAfter(node, nodeToInsert) { }
 
-  insertAtPosition(position, nodeToInsert) {}
+  insertAtPosition(position, nodeToInsert) { }
 
-  removeNodesWithValue(value) {}
+  removeNodesWithValue(value) { }
 
-  remove(node) {}
+  remove(node) { }
 
-  containsNodeWithValue(value) {}
+  containsNodeWithValue(value) { }
 }
 
 const list = new DoublyLinkedList();
 list.setHead(new Node(8));
 list.setHead(new Node(5));
+list.setHead(new Node(3));
+list.setHead(new Node(2));
+list.setHead(new Node(1));
 // list.setTail(new Node(80));
 console.log(list);
+list.print_list();
