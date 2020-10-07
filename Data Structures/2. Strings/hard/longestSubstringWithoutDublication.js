@@ -32,7 +32,7 @@ function longestSubstringWithoutDuplication(string) {
 
 
 
-// todo: O(n) solution | O(min(n,a)) space
+// todo: O(n) solution | O(min(n,a)) space -- essentailly og through the array, when there is a duplicate, then we do it again
 function longestSubstringWithoutDuplication(string) {
   const lastSeen = {};
   let longest = [0, 1];
@@ -40,7 +40,7 @@ function longestSubstringWithoutDuplication(string) {
   for (let i = 0; i < string.length; i++) {
     const char = string[i];
     if (char in lastSeen) {
-      startIdx = Math.max(startIdx, lastSeen[char] + 1);
+      startIdx = Math.max(startIdx, lastSeen[char] + 1); // getting out new start index, which would be right after the last seen
     }
     if (longest[1] - longest[0] < i + 1 - startIdx) {
       longest = [startIdx, i + 1];
