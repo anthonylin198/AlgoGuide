@@ -2,9 +2,7 @@
 
 // n = 6, denoms = [1,5]
 // output: 2
-
 // todo: Sort the denoms list in descending order. We do largest possibilities, then go smaller and smaller
-
 function numberOfWaysToMakeChange2(n, denoms) {
   const ways = new Array(n + 1).fill(0);
   ways[0] = 1;
