@@ -4,6 +4,7 @@
 
 // Return True if n is a happy number, and False if not.
 
+// todo: create a cache that stores all of the numbers, if there is every a loop then we know to get rid
 var isHappy = function (n) {
   // set a variable equal to n outside
   const startingNum = n;
