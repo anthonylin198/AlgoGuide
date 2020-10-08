@@ -22,7 +22,6 @@ function permutationsHelper(array, currentPermutation, permutations) {
     for (let i = 0; i < array.length; i++) {
       const newArray = array.slice(0, i).concat(array.slice(i + 1));
       console.log(newArray)
-      console.log(newArray)
       const newPermutation = currentPermutation.concat(array[i]);
       permutationsHelper(newArray, newPermutation, permutations);
     }
