@@ -22,3 +22,8 @@ function getPermutations(array) {
 }
 
 console.log(getPermutations([0, 1, 2]));
+
+
+
+// Get permutations: Takes an array of unique integers and returns an array of all permutations of those integers in no particular order -- if input array is empty, function should return an empty array
+
