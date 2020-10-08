@@ -8,7 +8,6 @@ var isHappy = function (n) {
   // set a variable equal to n outside
   const startingNum = n;
   isItHappy = false;
-
   (function checkIsHappy(inputNum = n, cache = { startingNum: true }) {
     // prase to a string
     const str = inputNum.toString();
@@ -28,10 +27,7 @@ var isHappy = function (n) {
       checkIsHappy(sum, cache);
     }
   })();
-
   return isItHappy;
 };
 
-
-
-// todo: Do the 2 pointer approach
+// todo: Do the fast and slow pointer approach
