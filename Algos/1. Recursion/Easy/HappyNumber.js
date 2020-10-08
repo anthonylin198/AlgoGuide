@@ -31,3 +31,7 @@ var isHappy = function (n) {
 
   return isItHappy;
 };
+
+
+
+// todo: Do the 2 pointer approach
