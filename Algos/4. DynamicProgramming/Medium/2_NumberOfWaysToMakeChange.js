@@ -22,9 +22,4 @@ function numberOfWaysToMakeChange(n, denoms) {
   return ways[n]
 }
 
-
-
-
-
-
 console.log(numberOfWaysToMakeChange(6, [1, 2, 5]))
