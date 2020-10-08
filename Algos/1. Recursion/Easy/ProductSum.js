@@ -16,7 +16,7 @@ function productSum(array, level = 1) {
       sum += array[i]
     }
   }
-  // return the sum value * level for each level of the array - this adds to the sum
+  // return the sum value * level for each level of the array - this adds to the sum - brings the sum down the callstack
   return sum * level;
 }
 

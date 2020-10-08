@@ -18,17 +18,16 @@ function getNthFib(n) {
 }
 
 
-
+// todo: my solution O(n) time and O(1) space
 function getNthFib(n) {
   // create an array that will store the previous 2
   const arr = [0, 1];
   // create a for loop to iterate from index 2 to index n
-  for (i = 2; i < n; i++) {
+  for (let i = 2; i < n; i++) {
     const newFib = arr[0] + arr[1]
     arr[0] = arr[1];
     arr[1] = newFib;
   }
-
   // if n is larger than 1, then we can return the second number in prev 2 arary
   if (n > 1) {
     return arr[1];
