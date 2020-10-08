@@ -13,7 +13,7 @@ function numberOfWaysToMakeChange(n, denoms) {
   ways[0] = 1;
   // iterate through the created array
   for (let denom of denoms) {
-    for (let i = 1; i < ways.length; i++) {
+    for (let i = 1; i < ways.length; i++) { // this is going in order of the array
       if (denom <= i) {
         ways[i] += ways[i - denom]
       }
