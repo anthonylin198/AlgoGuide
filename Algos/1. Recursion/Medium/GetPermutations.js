@@ -16,13 +16,13 @@ function getPermutations(array) {
 
 function permutationsHelper(array, currentPermutation, permutations) {
   // console.log(currentPermutation)
-  if (!array.length && currentPermutation.length) {
+  if (!array.length && currentPermutation.length) { // second part is just to pass an additional test case
     permutations.push(currentPermutation);
   } else {
     for (let i = 0; i < array.length; i++) {
       const newArray = array.slice(0, i).concat(array.slice(i + 1));
       console.log(newArray)
-      // console.log(newArray)
+      console.log(newArray)
       const newPermutation = currentPermutation.concat(array[i]);
       permutationsHelper(newArray, newPermutation, permutations);
     }
