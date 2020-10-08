@@ -2,6 +2,9 @@
 
 // input = [[1,3], [9,12],[[2,4], [6,8]]]
 
+
+// we use heap in this shit
+
 // ! One solution: Put the working hours of all employees in a list, and sort them on start time. Then we can iterate through the list to find gaps
 
 
