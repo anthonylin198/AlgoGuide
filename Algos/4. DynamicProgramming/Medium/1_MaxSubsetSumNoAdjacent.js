@@ -15,42 +15,36 @@
 
 // after iterating through the array, we return hte last number
 
-// ! Solution: Creating an array of the same length, breaking down ino smaller problems
+// todo: Max subset no adjacent: we can iterate through the array, always need to check if a certain number is worth it, compared to adding the 2 together
+// todo: example is if we have index 1 and 3, but index 2 is greater than both of thse combined, we woudl opt for that
+// todo: start off taking 
 
-// O(n) time complexity, going through array one time, O(n) space
+
+// array: [7, 10, 12, 7, 9, 14]
+// do checks if to take firs and third number, or if it is better to take the second number - and continuously do this with dynamic programming
+// array: [7, 10, (check 19 ) 19, (check 17 vs 19) 19, -- return the last number ]
 function maxSubsetSumNoAdjacent(array) {
-  // edge case, if array has no length
+  // edge case, if the array has no length
   if (!array.length) return 0;
   if (array.length === 1) return array[0];
-  const maxSums = array.slice(); // value at index 0 will remain the same
-  // if the length of array is just 1, then we return array at index 0
-  maxSums[1] = Math.max(array[0], array[1])
-  // for loop starting from i = 2 to array.length
+  // create an array that we will push values to as we iterate through the array
+  const dynamicArr = array.slice()
+  dynamicArr[1] = Math.max(array[0], array[1]) // for some reason we need to do this
+  // create for loop to iterate through the array, and add value based off the best case scenario (typic)
   for (let i = 2; i < array.length; i++) {
-    maxSums[i] = Math.max(maxSums[i - 1], array[i] + maxSums[i - 2])
+    // take the maximum off array[i] + array[i - 2] versus dynamicArr[i - 1]
+    dynamicArr[i] = Math.max(dynamicArr[i] + dynamicArr[i - 2], dynamicArr[i - 1])
+    console.log(dynamicArr)
   }
-  return maxSums[maxSums.length - 1]
+  return dynamicArr[dynamicArr.length - 1]
 }
 
-const arr = [75, 105, 120, 75, 90, 135]
 
-console.log(maxSubsetSumNoAdjacent(arr))
-
+console.log(maxSubsetSumNoAdjacent([30, 25, 50, 55, 100, 120]))
 
 
-// O(n) time and O(1) space
-function maxSusbsetSumNoAdjacent2(array) {
-  if (!array.length) return 0;
-  if (array.length === 1) return array[0];
-  // store into variables rather than an array
-  let second = array[0];
-  let first = Math.max(array[0], array[1]);
-  for (let i = 2; i < array.length; i++) {
-    const current = Math.max(first, second + array[i]);
-    second = first;
-    first = current;
-  }
-  return first;
-}
+
+
+
 
 
