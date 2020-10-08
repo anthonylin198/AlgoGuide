@@ -6,22 +6,20 @@
 
 
 
-// todo: Do dynamic programming -- keep track of out values from 0 -> n to track number of ways to keep the numbers
-
-
+// todo: Do dynamic programming -- keep track of out values from 0 -> n to track number of ways to keep the numbers O(nd) time and O(n) space
 function numberOfWaysToMakeChange(n, denoms) {
   // create an empty array of size n + 1: [0,1,2,3,4,5] if n was equal to 5
   const ways = new Array(n + 1).fill(0)
   ways[0] = 1;
-
-
   // iterate through the created array
-
-
-
-
-
-
+  for (let denom of denoms) {
+    for (let i = 1; i < ways.length; i++) {
+      if (denom <= i) {
+        ways[i] += ways[i - denom]
+      }
+    }
+  }
+  return ways[n]
 }
 
 
@@ -29,4 +27,4 @@ function numberOfWaysToMakeChange(n, denoms) {
 
 
 
-console.log(numberOfWaysToMakeChange(6, [1, 5]))
+console.log(numberOfWaysToMakeChange(6, [1, 2, 5]))
