@@ -1,34 +1,42 @@
-// write a function that takes in an array of at least two integers and that returns an array of the starting and ending indices of the smallest subarray in the input array
 
+// Subarray Sort: We need to sort the middle section the is not in order - maybe findn first incorrect from right, then first incorrect from left
 
-// find the first number that is out of order, then check to its left, adn check to the right - o(n^2)
+// whenever you got 1 number not in sorted order, then you got 2 - then we can find the furthes left index it has to be
+
+// ! Not complete, but somewhat close
+
+// keep track of max left index and max right index
+// todo: iterate through array and keep track of the max index, where something is out of place, and check all the way left of that to see where it needs to go
+// todo: need to think of a few more cases
+
+// todo: 2 pointer approach, check form left side and go once -- then check from the right side and go once
 function subarraySort(array) {
-  // create a for loop to iterate through the array
-  for (let i = 0; i < array.length; i++) {
-    // check if a number is out of order, if the number is out of order, we continue -- we just check if it is less than the previous number
-    // keep track of the least value an
-    if (array[i] < array[i - 1]) {
-      console.log(i)
-      // check to the left of the number: extend until we reach a number that we are less than or equal to
-      let leftIndex = i - 1;
-      while (array[leftIndex] > array[i] && leftIndex >= 0) {
-        leftIndex--;
+  let minLeftIdx = Infinity;
+  let maxRightIdx = -Infinity;
+  // for loop to iterate through the array, and identify every wrong index, and keep checking where it needs to be placed left
+  for (let i = 1; i < array.length; i++) {
+    console.log("left", minLeftIdx);
+    console.log(maxRightIdx);
+    // check if the number is out of place - if it is iterate left and compare minLeftIdx, and update maxRightIdx each time
+    if (array[i] - array[i - 1] < 0) {
+      maxRightIdx = i;
+      // while loop to find where it would be in the correct spot to put it to the left
+      let findLeftIdx = i - 1;
+      while (array[findLeftIdx] > array[i]) {
+        findLeftIdx--;
       }
-
-      // check to the right on the number: extend until we reach a number that we are greater than
-      let rightIndex = i;
-      while (array[rightIndex] < array[i] && rightIndex <= array.length) {
-        rightIndex++
+      if (findLeftIdx < minLeftIdx) {
+        minLeftIdx = findLeftIdx;
       }
-      i = rightIndex;
-
-      return [leftIndex, rightIndex]
     }
   }
-  // if we make it all the way out, then we return
-  return [-1, -1];
+
+  if (maxLeftIdx === Infinity) {
+    return [-1, -1]
+  }
+  return [minLeftIdx + 1, maxRightIdx];
 }
 
-const array = [4, 8, 7, 12, 11, 9, -1, 3, 9, 16, -15, 11, 57]
+const arr = [1, 2, 4, 7, 10, 11, 7, 12, 6, 7, 16, 18, 19];
 
-console.log(subarraySort(array))
+console.log(subarraySort(arr))
