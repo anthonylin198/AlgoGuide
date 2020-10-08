@@ -2,7 +2,7 @@
 
 
 
-// todo: Solution: start from a, and find longest palindrome form there. Then start from b, a, x, etc...
+// todo: Solution: O(n^3) can be optimized to O(n^2) start from a, and find longest palindrome form there. Then start from b, a, x, etc...
 
 function longestPalindromicSubstring(string) {
   let longest = 1;
