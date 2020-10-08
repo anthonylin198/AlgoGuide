@@ -29,7 +29,7 @@ function maxSubsetSumNoAdjacent(array) {
   if (array.length === 1) return array[0];
   // create an array that we will push values to as we iterate through the array
   const dynamicArr = array.slice()
-  dynamicArr[1] = Math.max(array[0], array[1]) // for some reason we need to do this
+  dynamicArr[1] = Math.max(array[0], array[1]) // make sure you start of with hte maximum value -- etch case where there is a skip later on
   // create for loop to iterate through the array, and add value based off the best case scenario (typic)
   for (let i = 2; i < array.length; i++) {
     // take the maximum off array[i] + array[i - 2] versus dynamicArr[i - 1]
@@ -40,7 +40,7 @@ function maxSubsetSumNoAdjacent(array) {
 }
 
 
-console.log(maxSubsetSumNoAdjacent([30, 25, 50, 55, 100, 120]))
+console.log(maxSubsetSumNoAdjacent([25, 30, 500, 55, 100, 120]))
 
 
 
