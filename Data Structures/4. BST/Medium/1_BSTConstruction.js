@@ -53,7 +53,7 @@ class BST {
   }
 
   // need to keep track of the parent node
-  remove(value) {
+  remove(value, parentNode = null) {
     // Write your code here.
     // Do not edit the return statement of this method.
     return this;
