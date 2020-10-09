@@ -1,63 +1,52 @@
-// Todo 1 (Medium): Construct a DoublyLinkedList. Setting head and tail of the list, inser nodes before and after nodes, removing given nodes and removing nodes with given values, searching with given vals
-// ! TAKEAWAYS: Remember that props are always passed through as copies, so we are not changing the actualy value. We must use the this.head or this.tail, which is why insertion is O(n)
-// ? Solution 1: Time Complexity O(N) and Space Complexity O(N)
-
+// This is an input class. Do not edit.
 class Node {
   constructor(value) {
     this.value = value;
-    this.prev = null; // the previous makes this a doubly linkedlist
+    this.prev = null;
     this.next = null;
   }
-
 }
 
-//
+// Feel free to add new properties and methods to the class.
 class DoublyLinkedList {
   constructor() {
     this.head = null;
     this.tail = null;
   }
 
-
-  // print out values in linked list
-  print_list() {
-    console.log("here")
-    let node = this.head;
+  // create a function to print out the linkedlist
+  printList(node) {
     const arr = [];
     while (node) {
       arr.push(node.value)
-      node = node.next;
+      node = node.next
     }
-    console.log(arr)
+    return arr;
   }
 
-  // should shift a value to the head
+  // O(1) time O(1) space
   setHead(node) {
-    // if there is not head in the linkedlist, we must set it equal to the head and the tail
-    if (!this.head) {
+    if (this.head === null) { // if no head set, then initial is the head and the tail
       this.head = node;
       this.tail = node;
-    } else {
-      this.insertBefore(this.head, node);
+      return;
     }
+    this.insertBefore(this.head, node);
   }
 
-  // if there is no tail, we just use set head -- else,
   setTail(node) {
-    if (!this.tail) {
+    // Write your code here.
+    if (this.tail === null) {
       this.head = node;
       this.tail = node;
-    } else {
-      node.prev = this.tail;
-      this.tail = node;
+      return;
     }
+    this.insertAfter(this.tail, node)
   }
 
-  // insert before a certain node
   insertBefore(node, nodeToInsert) {
-    // if it is the head
     if (nodeToInsert === this.head && nodeToInsert === this.tail) return;
-    this.remove(nodeToInsert);
+    this.remove(nodeToInsert); // remove node to insert
     nodeToInsert.prev = node.prev;
     nodeToInsert.next = node;
     if (node.prev === null) {
@@ -68,16 +57,70 @@ class DoublyLinkedList {
     node.prev = nodeToInsert;
   }
 
-  insertAfter(node, nodeToInsert) { }
+  insertAfter(node, nodeToInsert) {
+    if (nodeToInsert === this.head && nodeToInsert === this.tail) return;
+    this.remove(nodeToInsert);
+    // setting node to insert correctly 
+    nodeToInsert.prev = node;
+    nodeToInsert.next = node.next; // equal to the node.next rn
+    // edit the node -- check case if the next is null
+    if (node.next === null) {
+      this.tail = nodeToInsert
+    } else {
+      node.next.prev = nodeToInsert
+    }
+    // then we actually set node.next to node.insert
+    node.next = nodeToInsert
+  }
 
-  insertAtPosition(position, nodeToInsert) { }
+  // O(p) time | O(1) space
+  insertAtPosition(position, nodeToInsert) {
+    if (position === 1) { // if position is 1, just set the head
+      this.setHead(nodeToInsert);
+      return;
+    }
+    let node = this.head;
+    let currentPosition = 1;
+    while (node !== null & currentPosition++ !== position) node = node.next;
+    if (node !== null) {
+      this.insertBefore(node, nodeToInsert)
+    } else {
+      this.setTail(nodeToInsert);
+    }
 
-  removeNodesWithValue(value) { }
+  }
 
-  remove(node) { }
+  removeNodesWithValue(value) {
+    // Write your code here.
+    let node = this.head;
+    // iterate through the linkedlist and remove
+    while (node !== null) {
+      const nodeToRemove = node;
+      node = node.next;
+      if (nodeToRemove.value === value) this.remove(nodeToRemove)
+    }
+  }
 
-  containsNodeWithValue(value) { }
+  remove(node) {
+    if (node === this.head) this.head = this.head.next;
+    if (node === this.tail) this.tail = this.tail.prev;
+    this.removeNodeBindings(node);
+  }
+
+  containsNodeWithValue(value) {
+    let node = this.head;
+    while (node !== null && node.value !== value) node = node.next;
+    return node !== null;
+  }
+
+  removeNodeBindings(node) {
+    if (node.prev !== null) node.prev.next = node.next;
+    if (node.next !== null) node.next.prev = node.prev;
+    node.prev = null;
+    node.next = null;
+  }
 }
+
 
 const list = new DoublyLinkedList();
 list.setHead(new Node(8));
@@ -85,6 +128,5 @@ list.setHead(new Node(5));
 list.setHead(new Node(3));
 list.setHead(new Node(2));
 list.setHead(new Node(1));
-// list.setTail(new Node(80));
 console.log(list);
-list.print_list();
+console.log(list.printList(list.head));
