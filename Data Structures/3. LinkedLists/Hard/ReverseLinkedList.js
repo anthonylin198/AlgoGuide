@@ -29,9 +29,5 @@ function reverseLinkedList(head) {
     previousNode = currentNode;
     currentNode = nextNode; // the original currentnode.next, sets it to the 2
   }
-
   return previousNode
-
-
-
 }
