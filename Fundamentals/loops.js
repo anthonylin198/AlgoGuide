@@ -7,7 +7,7 @@ arr.forEach((num, index) => {
   return arr[index] = num * 2;
 })
 
-console.log(arr)
+// console.log(arr)
 
 
 
@@ -19,3 +19,13 @@ const doubled = arr.map((num, index) => {
 
 console.log(arr)
 console.log(doubled)
+
+
+
+
+const doubled2 = arr.map(function (num, index) {
+  console.log(index);
+  return num * 2;
+})
+
+console.log("this", doubled2)
