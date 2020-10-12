@@ -15,3 +15,7 @@ set.add(mary);
 set.add(john); // this does not matter
 
 console.log(set)
+
+
+
+

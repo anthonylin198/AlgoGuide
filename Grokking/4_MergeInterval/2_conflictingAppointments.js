@@ -4,6 +4,9 @@
 // output: false
 // sicne there is an overlap, person cannot attent one of these appointments
 
+
+// input: [[1,2], [2,3], [3,4] , [4,5]]
+
 class Interval {
   constructor(start, end) {
     this.start = start;
