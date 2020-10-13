@@ -18,7 +18,7 @@ function invertBinaryTree(tree) {
 
 // create invertTree helper function to manipulate the tree
 function invertTree(node) {
-  // if the node does not exist -- find the most common parent element, and make the child nodes left and right
+  // if the node does not exist -- pop off call stack and look 
   if (!node) {
     return;
   }
