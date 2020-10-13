@@ -4,7 +4,7 @@
 // Output: 2
 // Explanation: [5, 2]
 
-// ! Sliding Window approach: we start from the beginning, then pop one off from the end
+// ! Sliding Window approach: we start from the beginning, then pop one off from the end -- solve this way
 // O(n) time and O(1) space
 function smallestSubarray(s, arr) {
   let windowSum = 0,

@@ -36,3 +36,32 @@ function reverseString(string) {
 }
 
 // console.log(reverseSentence("Welcome to this Javascript Guide!"))
+
+// todo: check if is an array
+function checkIsArray(arr) {
+
+
+  if (Array.isArray(arr)) return true;
+
+  return false;
+}
+
+// console.log(checkIsArray(3))
+
+// todo: check if a number is an integer: just divide by one and see if the remainder is 0
+function checkIsInt(num) {
+
+  if (num % 1 === 0) return true;
+
+  return false;
+}
+
+
+// todo: Implement enqueue and dequeue using only 2 stacks
+const arr2 = [1, 2, 3, 4, 5]
+
+console.log(arr2.pop());
+console.log(arr2.shift()) // removes the element and shifts over
+console.log(arr2)
+
+
