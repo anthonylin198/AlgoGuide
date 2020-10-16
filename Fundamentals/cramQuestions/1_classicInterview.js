@@ -157,3 +157,11 @@ function findFibonacci(n) {
 console.log(findFibonacci(5))
 
 
+
+// beauty of dynamic programiing
+
+// 1, 2, 3, 4, 5
+// 1, 2, 3, 5, 8 --> using a little be alterated version of the fibonacci sequence, we can return the value we need
+
+
+// todo: understand promises
