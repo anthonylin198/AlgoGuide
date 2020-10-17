@@ -14,7 +14,7 @@ officers.forEach((officer) => {
 
 console.log(arr);
 
-// todo: Using the map function which takes 2 arguments, a callback and an optional context
+// todo: Using the map function which takes 2 arguments, a callback and an optional context. Returns a new array
 const officerIds = officers.map(function (officer) {
   return officer.id;
 });
@@ -45,7 +45,7 @@ const pilots = [
   },
 ];
 
-// todo: Arrow functions return a single line
+// todo: Arrow functions return a single line. Reduce reutrn a single element
 const totalYears = pilots.reduce((acc, pilot) => {
   return acc + pilot.years;
 }, 0);
