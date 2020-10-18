@@ -1,4 +1,3 @@
-
 // Prompt: Given array of positive numbers and positive number 'S', find the length of the smallest contiguous subarray whose sum is greater than or equal to 'S', 0 of none exists
 // Input: [2, 1, 5, 2, 3, 2], S = 7
 // Output: 2
@@ -6,7 +5,7 @@
 
 // ! Sliding Window approach: we start from the beginning, then pop one off from the end -- solve this way
 // O(n) time and O(1) space
-function smallestSubarray(s, arr) {
+function smallestSubarray2(s, arr) {
   let windowSum = 0,
     minLength = Infinity,
     windowStart = 0;
@@ -26,5 +25,4 @@ function smallestSubarray(s, arr) {
   return minLength;
 }
 
-console.log(smallestSubarray(7, [2, 1, 5, 2, 3, 2]))
-
+console.log(smallestSubarray(7, [2, 1, 5, 2, 3, 2]));
