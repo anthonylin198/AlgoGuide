@@ -5,24 +5,21 @@
 
 /*
 
-merge all intervals to have mutually exclusive intervals
-
-One solution would be to order the intervals in order based off the first number, then secondary based off of the second number O(logn time)
-
-todo: Sort the list of times in order based off the first number, and then the second number 
-
-[[2, 5], [1, 3], [4, 8], [5, 6], [3, 6]]
-
-sort the array of arrays
-[[1, 3], [2, 5], [8, 20], [12, 16]
+sort all in order
 
 
-output: [[1, 5], [3, 8]]
 
-compare: [1, 3] to [2, 5] --> push [1, 5] to the array
+All possible situations. a and b do not overlap, some parts of b overlap with a, a fully overlaps b
 
-compare [1, 5] to [8, 20]
+input: [[1, 4], [5, 9], [7, 12], [9, 10]]
 
+output: [[1, 4], [5, 12], 7, 12]
+
+
+
+1) Sort the range in order, based off the first number than the second number
+
+2)  3 different situations. If and a b do not overlap, push. If some parts of b overlap with a, take first value of a, and last value of b. If fully overlap, take both
 
 
 */

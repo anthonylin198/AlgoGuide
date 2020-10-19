@@ -4,8 +4,14 @@
 // output: false
 // sicne there is an overlap, person cannot attent one of these appointments
 
+/*
+Figure out if a person can attend all the meeting times
 
-// input: [[1,2], [2,3], [3,4] , [4,5]]
+If there is any overlap person cannot attend one of these appointments. [1,5] [5, 10] -- can the person attend both of these meetings?
+
+Order the arrays in order, based of first number then the second. If the end of a is > start of b, then we return false
+
+*/
 
 class Interval {
   constructor(start, end) {
@@ -30,20 +36,26 @@ function can_attend_all_appointments(intervals) {
   return true;
 }
 
-
-
-console.log(`Can attend all appointments: ${can_attend_all_appointments([new Interval(1, 4),
-new Interval(2, 5),
-new Interval(7, 9),
-])}`);
-console.log(`Can attend all appointments: ${can_attend_all_appointments([new Interval(6, 7),
-new Interval(2, 4),
-new Interval(8, 12),
-])}`);
-console.log(`Can attend all appointments: ${can_attend_all_appointments([new Interval(4, 5),
-new Interval(2, 3),
-new Interval(3, 6),
-])}`);
-
+console.log(
+  `Can attend all appointments: ${can_attend_all_appointments([
+    new Interval(1, 4),
+    new Interval(2, 5),
+    new Interval(7, 9),
+  ])}`
+);
+console.log(
+  `Can attend all appointments: ${can_attend_all_appointments([
+    new Interval(6, 7),
+    new Interval(2, 4),
+    new Interval(8, 12),
+  ])}`
+);
+console.log(
+  `Can attend all appointments: ${can_attend_all_appointments([
+    new Interval(4, 5),
+    new Interval(2, 3),
+    new Interval(3, 6),
+  ])}`
+);
 
 // ! WE ALSO NEED TO FIND ALL CONFLICTING APPOINTMENTS
