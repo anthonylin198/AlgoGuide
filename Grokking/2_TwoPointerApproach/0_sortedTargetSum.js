@@ -1,10 +1,73 @@
-
 // prompt: given a sorted array of numbers and a target sum, find a pair in the array whose sum is equal to the given target
 
 // input: [1, 2, 3, 4, 6], target = 6
 // output: [1, 3]
 // explanation: 2 + 4 is equal to 6
 
+/*
+
+Brute Force Solution: O(n)^2 time and O(1) space
+pointer at 1, and pointer at 2
+1, 2
+1, 3
+1, 4
+1, 6
+
+
+2, 3
+2, 4 ---- return the indices here
+2, 6
+
+3, 4
+3, 6
+
+4, 6
+
+
+
+
+Using a cache -- store that values into a cache O(n)^2 time and O(n) space
+
+cache = {1: 0 2: 1 3: 2}
+1
+2
+3
+4 -- see that 2 is in the cache and return it
+
+
+
+Since is sorted can do better: 2 pointer approach one at start and one at the end
+
+1, 6
+1, 4
+2, 4    -- target is 6
+
+
+
+O(n/2) --> O(n) time and O(1) space
+
+
+
+*/
+
+function mySortedTwoSum(arr, target) {
+  // create left pointer and right pointer
+  let leftPointer = 0;
+  let rightPointer = arr.length - 1;
+  // while left pointer < right pointer
+  while (leftPointer < rightPointer) {
+    // take the sum of the value
+    let currentSum = arr[leftPointer] + arr[rightPointer];
+    // if less than the target
+    if (currentSum < target) leftPointer++;
+    else if (currentSum > target) rightPointer--;
+    else return [leftPointer, rightPointer];
+  }
+
+  return false;
+}
+
+console.log(mySortedTwoSum([1, 2, 3, 4, 5], 6));
 
 // ! brute force: O(N^2): we just do nested for loop
 function sortedTwoSum(arr, target) {
@@ -15,17 +78,11 @@ function sortedTwoSum(arr, target) {
       }
     }
   }
-
 }
 
 // console.log(sortedTwoSum([1, 2, 3, 4, 5, 6, 7, 8, 9], 9))
 
-
 // ! binary search approach would be O(N * logN)
-
-
-
-
 
 // ! using 2 pointer approach: O(n) time and O(1) constant space
 function pair_with_target_sum(arr, targetSum) {
@@ -46,4 +103,4 @@ function pair_with_target_sum(arr, targetSum) {
   return [-1, -1];
 }
 
-console.log(pair_with_target_sum([1, 2, 3, 4, 6], 6))
+// console.log(pair_with_target_sum([1, 2, 3, 4, 6], 6));
