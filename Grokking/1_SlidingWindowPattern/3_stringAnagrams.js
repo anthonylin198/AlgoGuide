@@ -1,9 +1,26 @@
 // Prompt: given a string an a pattern, find all anagrams of the pattern in the given string
-// input: "ppqp" , "pq"
+// input: "pqsprqpq" , "pqr"
 // output: [1, 2]
 // explanation: the two anagrams of the pattern in the given string are "pq" and "qp"
 
+/*
 
+todo: Solution: check every window of length givenString.length. 
+pqs: no   iF there is a single character in the subarray, not in the given string, then we need to move until startWindow is at the
+-- each time hit a character that is not in the given string
+
+
+
+
+
+
+*/
+
+function find_string_anagrams2(str, pattern) {
+  // store the characters in the pattern into an object
+  // create array to store all values
+  // keep track of start window
+}
 
 // write a function to return a list of starting indices of the anagrams of the pattern in the given string
 
@@ -52,5 +69,5 @@ function find_string_anagrams(str, pattern) {
   return resultIndices;
 }
 
-
-console.log(find_string_anagrams('ppqp', 'pq')); console.log(find_string_anagrams('abbcabc', 'abc'));
+console.log(find_string_anagrams("ppqp", "pq"));
+console.log(find_string_anagrams("abbcabc", "abc"));

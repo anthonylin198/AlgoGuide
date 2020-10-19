@@ -8,11 +8,7 @@
 // Output: [3]
 // only substring containing both the words is "catfox"
 
-
-// ! my approach: would be finding every possible combination of the array, and store in the object. then run through the input string and see if it exists
-
-
-
+// ! approach: would be finding every possible combination of the array, and store in the object. then run through the input string and see if it exists
 
 // ! Sliding window approach
 function find_word_concatenation(str, words) {
@@ -28,14 +24,14 @@ function find_word_concatenation(str, words) {
       wordFrequency[word] = 0;
     }
     wordFrequency[word] += 1;
-  })
+  });
 
   const resultIndices = [],
     wordsCount = words.length;
   wordLength = words[0].length;
 
   // then we iterate through the actual word
-  for (let i = 0; i < (str.length - wordsCount * wordLength) + 1; i++) {
+  for (let i = 0; i < str.length - wordsCount * wordLength + 1; i++) {
     const wordsSeen = {};
     for (let j = 0; j < wordsCount; j++) {
       next_word_index = i + j * wordLength;
@@ -57,12 +53,12 @@ function find_word_concatenation(str, words) {
       }
 
       if (j + 1 === wordsCount) {
-        resultIndices.push(i)
+        resultIndices.push(i);
       }
     }
   }
   return resultIndices;
 }
 
-console.log(find_word_concatenation('catfoxcat', ['cat', 'fox']));
-console.log(find_word_concatenation('catcatfoxfox', ['cat', 'fox']));
+console.log(find_word_concatenation("catfoxcat", ["cat", "fox"]));
+console.log(find_word_concatenation("catcatfoxfox", ["cat", "fox"]));
