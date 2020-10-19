@@ -3,18 +3,40 @@
 // Output: [[1,5], [7,9]]
 // since [1,4] and [2, 5] overlap, we merge them into [1, 5]
 
+/*
 
+merge all intervals to have mutually exclusive intervals
+
+One solution would be to order the intervals in order based off the first number, then secondary based off of the second number O(logn time)
+
+todo: Sort the list of times in order based off the first number, and then the second number 
+
+[[2, 5], [1, 3], [4, 8], [5, 6], [3, 6]]
+
+sort the array of arrays
+[[1, 3], [2, 5], [8, 20], [12, 16]
+
+
+output: [[1, 5], [3, 8]]
+
+compare: [1, 3] to [2, 5] --> push [1, 5] to the array
+
+compare [1, 5] to [8, 20]
+
+
+
+*/
 
 // todo: using arrays
 function mergeIntervals(arr) {
   const mergedIntervals = [];
   // sort the arrays in ascending order, from first number in the array. If they are equal, then sort based second val
   arr.sort((a, b) => {
-    if (a[0] === b[0]) return a[1] - b[1]
-    return a[0] - b[0]
-  })
+    if (a[0] === b[0]) return a[1] - b[1];
+    return a[0] - b[0];
+  });
 
-  console.log(arr)
+  console.log(arr);
   // keep track of the start and the end
   let start = arr[0][0];
   let end = arr[0][1];
@@ -27,22 +49,21 @@ function mergeIntervals(arr) {
       end = interval[1];
     } else {
       mergedIntervals.push([start, end]);
-      start = interval[0]
-      end = interval[1]
+      start = interval[0];
+      end = interval[1];
     }
   }
   // add last interval
-  mergedIntervals.push([start, end])
-  return mergedIntervals
-
+  mergedIntervals.push([start, end]);
+  return mergedIntervals;
 }
 
-
-const arr = [[1, 4], [2, 5], [7, 9]]
-console.log("this is merged", mergeIntervals(arr))
-
-
-
+const arr = [
+  [1, 4],
+  [2, 5],
+  [7, 9],
+];
+console.log("this is merged", mergeIntervals(arr));
 
 // class Interval {
 //   constructor(start, end) {
@@ -58,7 +79,7 @@ console.log("this is merged", mergeIntervals(arr))
 //   if (intervals.length < 2) {
 //     return intervals;
 //   }
-//   // sort the intervals on the start time 
+//   // sort the intervals on the start time
 //   intervals.sort((a, b) => a.start - b.start);
 
 //   console.log(intervals)
@@ -76,7 +97,7 @@ console.log("this is merged", mergeIntervals(arr))
 //       end = interval.end;
 //     }
 //   }
-//   // add the last interval 
+//   // add the last interval
 //   mergedIntervals.push(new Interval(start, end));
 //   return mergedIntervals;
 // }
@@ -85,6 +106,3 @@ console.log("this is merged", mergeIntervals(arr))
 // const second = new Interval(2, 5)
 // const third = new Interval(7, 9)
 // console.log(merge([first, second, third]));
-
-
-
