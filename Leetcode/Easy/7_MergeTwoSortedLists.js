@@ -28,43 +28,52 @@ if l2.value > l1.value, got the the next value in l1
 if l2.value <= l1.value, then we need to insert the values before
 
 
-[1,2,3] [1,3,4]
+[1,5,7] [,6,9]
 
-[1,1,2,3]
-[1,1,2,3,3]
-[1,1,2,3,3,4]
+[1,5,7]
 
 
 continue to iterate through until l2.value is at the end
 
-1 --> 2 --> 4 --> 5       insert 3
+1 --> 2 --> 4      1 --> 3 --> 4
 
 
-1 --> 2
+1 --> 1 -- > 2 --> 4
 
-
+1 ---> 1 --> 2 --> 3 --> 4    we know we can slap that 3 in before when the l2 is different
 
 
 */
 
-// val and next properties. We need to keep track of the node before as well since that next has to change
-function mergeTwoLists(l1, l2) {
-  if (!l1 || !l2) return l1 || l2;
-  if (l1.val < l2.val) {
-    l1.next = mergeTwoLists(l1.next, l2);
-    return l1;
-  } else {
-    l2.next = mergetwoLists(l1, l2.next);
-    return l2;
+// O(m + n) time complexity
+const mergeTwoLists = (l1, l2) => {
+  // set pointer for l1 and pointer for l2
+  let pointer1 = l1.next;
+  let slowPointer = l1; // slow pointer will always be one behind pointer1
+  let pointer2 = l2;
+
+  // while l2 exists
+  while (pointer2) {
+    if (!pointer1) {
+      // if there is no pointer 1 we know we can jsut add pointer 2 after
+      pointer1 = pointer2;
+    }
+    if (pointer1.val >= pointer2.val) {
+      // then we need to insert before
+      // update the next value of the slowPointer
+      console.log(slowPointer);
+      slowPointer.next = new ListNode(pointer2.val);
+      slowPointer.next.next = pointer1; // insert into the pointer
+      pointer2 = pointer2.next;
+      slowPointer = slowPointer.next;
+    } else {
+      pointer1 = pointer1.next;
+      slowPointer = slowPointer.next;
+    }
   }
-}
-
-// create helper function to insert before
-function insertBefore(node, insertValue) {
-  //
-}
-
-let mergeTwoLists = (l1, l2) => {
+  return l1;
+};
+let mergeTwoLists2 = (l1, l2) => {
   let result = new ListNode("^");
   let current = result;
   while (l1 || l2) {
@@ -81,3 +90,20 @@ let mergeTwoLists = (l1, l2) => {
   }
   return result.next;
 };
+
+// val and next properties. We need to keep track of the node before as well since that next has to change
+function mergeTwoLists3(l1, l2) {
+  if (!l1 || !l2) return l1 || l2;
+  if (l1.val < l2.val) {
+    l1.next = mergeTwoLists(l1.next, l2);
+    return l1;
+  } else {
+    l2.next = mergetwoLists(l1, l2.next);
+    return l2;
+  }
+}
+
+// create helper function to insert before
+function insertBefore(node, insertValue) {
+  //
+}
