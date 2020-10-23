@@ -17,7 +17,7 @@ Output: [1,2,2,3,5,6]
 Create 2 pointers, one on num1 and one on num2. Iterate through the arrays and push values to another array
 
 nums1 = [1,2,3,0], m = 3
-nums2 = [2,6],       n = 3
+nums2 = [0.5,6],       n = 3
 
 Output: [1, 2, 2, 3, 5, 6]
 
@@ -39,11 +39,67 @@ pointer2 = 1;
 
 
 
+todo: Merging the 2 arrays in place
+If the value at the end of nums 2 is larger than last value of nums 1, we put to the end of the nums 1 array, and m + n - 1.
+Else, if it is less, we need to use splice and insert value in appropriate value, and also slice the value at m + n + - 1 - i
+
+Keep track of 2 pointers at m-1 and n-1. Keep track of last of the combined at  totalArr= m + n - 1
+
+[1,2,3,0,0,0]
+[1,2,3,0,0,6]
+[1,2,3,0,5,6] -- if it is less, then we first splice the value at totallArr, then cycle through
+[1,2,3,5,6]
+[0.5,1,2,3,5,6]
 
 
 
 
+[0]
+0
+[1]
+1
+
+[2,0]
+1
+[1]
+1
 */
+
+// todo: Inplace solution starting from the end
+function merge2(nums1, m, nums2, n) {
+  // create 3 pointers, m-1, n-1, and m+n - 1
+  let pointer1 = m - 1;
+  if (!m) {
+    pointer1 = 0;
+  }
+  let pointer2 = n - 1;
+  let totalPointer = m + n - 1;
+  while (pointer2 >= 0) {
+    if (nums2[pointer2] > nums1[pointer1]) {
+      nums1[totalPointer] = nums2[pointer2];
+      totalPointer--;
+      pointer2--;
+    } else {
+      nums1.splice(totalPointer, 1);
+      while (pointer1 >= 0) {
+        if (pointer1 === 0) {
+          nums1.splice(pointer1, 0, nums2[pointer2]);
+          pointer2--;
+        }
+        if (nums2[pointer2] >= nums1[pointer1]) {
+          nums1.splice(pointer1, 0, nums2[pointer2]);
+          pointer2--;
+        }
+        pointer1--;
+      }
+    }
+  }
+  return nums1;
+}
+
+console.log(merge2([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
+console.log(merge2([0], 0, [1], 1));
+console.log(merge2([2, 0], 1, [1], 1));
 
 // With a new Array
 function merge(nums1, m, nums2, n) {
@@ -69,4 +125,32 @@ function merge(nums1, m, nums2, n) {
   return arr;
 }
 
-console.log(merge([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
+// console.log(merge([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
+
+//todo: Leetcode Solution -- capturing all the cases
+var merge = function (nums1, m, nums2, n) {
+  // maintain two pointers for both arrays
+  let nums1Pointer = 0;
+  let nums2Pointer = 0;
+  const totalElements = m + n;
+
+  // we loop over the larger array since it has space for all combined elements
+  while (nums1Pointer < totalElements) {
+    if (nums1Pointer >= m || nums1[nums1Pointer] >= nums2[nums2Pointer]) {
+      // if it's the last element
+      if (nums1[nums1Pointer + 1] === undefined) {
+        // replace the last element with the value from the smaller array
+        nums1.splice(nums1Pointer, 1, nums2[nums2Pointer]);
+      } else {
+        // if the value in the smaller array is smaller, pop, splice, continue
+        nums1.pop();
+        nums1.splice(nums1Pointer, 0, nums2[nums2Pointer]);
+        m++;
+      }
+      nums2Pointer++;
+    }
+    nums1Pointer++;
+  }
+
+  return nums1;
+};
