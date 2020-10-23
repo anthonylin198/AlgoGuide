@@ -43,33 +43,37 @@ Create a helper function that will determine of surrounding are filled
 
 */
 
-// function floodFill(image, sr, sc, newColor) {
-//   // figure out what the original color is
-//   let originalColor = image[sr][sc];
-//   // create a helper function that takes in the image, sr, sc, and newColor
-//   function floodFillHelper(image, i, j, newColor) {
-//     if (image[i - 1] && image[i - 1][j] === originalColor) {
-//       image[i - 1][j] = newColor;
-//       floodFillHelper(image, i - 1, j, newColor);
-//     }
-//     if (image[i][j + 1] === originalColor) {
-//       image[i][j + 1] = newColor;
-//       floodFillHelper(image, i, j + 1, newColor);
-//     }
-//     if (image[i][j - 1] === originalColor) {
-//       image[i][j - 1] = newColor;
-//       floodFillHelper(image, i, j - 1, newColor);
-//     }
-//     if (image[i + 1] && image[i + 1][j] === originalColor) {
-//       image[i + 1][j] = newColor;
-//       floodFillHelper(image, i + 1, j, newColor);
-//     }
-//     return image;
-//   }
+// todo: Self created recursive own solution
+function floodFill(image, sr, sc, newColor) {
+  // figure out what the original color is
+  let originalColor = image[sr][sc];
+  image[sr][sc] = newColor;
+  if (newColor === originalColor) return image;
+  // create a helper function that takes in the image, sr, sc, and newColor
+  function floodFillHelper(image, i, j, newColor) {
+    if (image[i - 1] && image[i - 1][j] === originalColor) {
+      image[i - 1][j] = newColor;
+      floodFillHelper(image, i - 1, j, newColor);
+    }
+    if (image[i][j + 1] === originalColor) {
+      image[i][j + 1] = newColor;
+      floodFillHelper(image, i, j + 1, newColor);
+    }
+    if (image[i][j - 1] === originalColor) {
+      image[i][j - 1] = newColor;
+      floodFillHelper(image, i, j - 1, newColor);
+    }
+    if (image[i + 1] && image[i + 1][j] === originalColor) {
+      image[i + 1][j] = newColor;
+      floodFillHelper(image, i + 1, j, newColor);
+    }
+    return image;
+  }
+  image[sr][sc] = newColor;
+  return floodFillHelper(image, sr, sc, newColor);
+}
 
-//   return floodFillHelper(image, sr, sc, newColor);
-// }
-
+// todo: Faster solution capturing a lot of the other returns
 var floodFill = function (image, sr, sc, newColor) {
   const currentColor = image[sr][sc];
 
@@ -81,21 +85,22 @@ var floodFill = function (image, sr, sc, newColor) {
 const traverse = (image, currentColor, newColor, x, y) => {
   if (newColor === currentColor) return;
 
+  // checking if the value getting checked is less than undefined, or if it is not equal to the current color.
   if (
     x < 0 ||
     y < 0 ||
     x > image.length - 1 ||
-    y > image[0].length ||
+    y > image[0].length - 1 ||
     image[x][y] !== currentColor
   )
     return;
 
-  image[x][y] = newColor;
+  image[x][y] = newColor; // start off setting the starting value to the new color
 
-  traverse(image, currentColor, newColor, x + 1, y);
-  traverse(image, currentColor, newColor, x - 1, y);
-  traverse(image, currentColor, newColor, x, y + 1);
-  traverse(image, currentColor, newColor, x, y - 1);
+  traverse(image, currentColor, newColor, x + 1, y); // check up
+  traverse(image, currentColor, newColor, x - 1, y); // check right
+  traverse(image, currentColor, newColor, x, y + 1); // check down
+  traverse(image, currentColor, newColor, x, y - 1); // check up
 };
 
 console.log(
