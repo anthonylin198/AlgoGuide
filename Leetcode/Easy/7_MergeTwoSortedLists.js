@@ -45,65 +45,51 @@ continue to iterate through until l2.value is at the end
 
 */
 
-// O(m + n) time complexity
-const mergeTwoLists = (l1, l2) => {
-  // set pointer for l1 and pointer for l2
-  let pointer1 = l1.next;
-  let slowPointer = l1; // slow pointer will always be one behind pointer1
-  let pointer2 = l2;
-
-  // while l2 exists
-  while (pointer2) {
-    if (!pointer1) {
-      // if there is no pointer 1 we know we can jsut add pointer 2 after
-      pointer1 = pointer2;
-    }
-    if (pointer1.val >= pointer2.val) {
-      // then we need to insert before
-      // update the next value of the slowPointer
-      console.log(slowPointer);
-      slowPointer.next = new ListNode(pointer2.val);
-      slowPointer.next.next = pointer1; // insert into the pointer
-      pointer2 = pointer2.next;
-      slowPointer = slowPointer.next;
-    } else {
-      pointer1 = pointer1.next;
-      slowPointer = slowPointer.next;
-    }
+// O(min(m, n)) time complexity, O(m, n) space
+class Node {
+  constructor(value) {
+    this.val = value;
+    this.next = null;
   }
-  return l1;
-};
-let mergeTwoLists2 = (l1, l2) => {
-  let result = new ListNode("^");
-  let current = result;
-  while (l1 || l2) {
-    let min;
-    if (!l2 || (l1 && l1.val <= l2.val)) {
-      min = l1.val;
+
+  print() {
+    const arr = [];
+    let node = this;
+    while (node) {
+      arr.push(node.val);
+      node = node.next;
+    }
+    return arr;
+  }
+}
+
+// time complexity is O(min(m,n))
+const mergeTwoLists = function (l1, l2) {
+  const head = new Node(null);
+  let curr = head;
+  while (l1 && l2) {
+    if (l1.val < l2.val) {
+      curr.next = l1; // to ensure that we won't hit a null value
       l1 = l1.next;
-    } else if (!l1 || (l2 && l2.val <= l1.val)) {
-      min = l2.val;
+    } else {
+      curr.next = l2;
       l2 = l2.next;
     }
-    current.next = new ListNode(min);
-    current = current.next;
+    curr = curr.next;
   }
-  return result.next;
+  curr.next = l1 || l2; // understand this conditional. If either one has something left, then we return it
+  return head.next;
 };
 
-// val and next properties. We need to keep track of the node before as well since that next has to change
-function mergeTwoLists3(l1, l2) {
-  if (!l1 || !l2) return l1 || l2;
-  if (l1.val < l2.val) {
-    l1.next = mergeTwoLists(l1.next, l2);
-    return l1;
-  } else {
-    l2.next = mergetwoLists(l1, l2.next);
-    return l2;
-  }
-}
+const l1 = new Node(1);
+l1.next = new Node(2);
+l1.next.next = new Node(4);
 
-// create helper function to insert before
-function insertBefore(node, insertValue) {
-  //
-}
+const l2 = new Node(0);
+l2.next = new Node(1);
+l2.next.next = new Node(2);
+l2.next.next.next = new Node(3);
+
+console.log("here", mergeTwoLists(l1, l2));
+console.log("print", l1.print());
+console.log("print", l2.print());

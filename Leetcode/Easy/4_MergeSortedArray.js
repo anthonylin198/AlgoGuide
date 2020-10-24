@@ -127,7 +127,7 @@ function merge(nums1, m, nums2, n) {
 
 // console.log(merge([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
 
-//todo: Leetcode Solution -- capturing all the cases
+//todo: Leetcode Solution -- capturing
 var merge = function (nums1, m, nums2, n) {
   // maintain two pointers for both arrays
   let nums1Pointer = 0;
