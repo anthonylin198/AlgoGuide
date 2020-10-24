@@ -1,16 +1,25 @@
 const arr = [
-  "ssd fdsv",
-  "ass qweqwf",
-  "rdsadsa tger",
-  "fdsf app",
-  "app lo",
-  "fds lod",
-  "sdfsd lit",
+  "ssd f,dsv",
+  "ass SFGSDFSDFqw.eqwf",
+  "rd,sadsa tger",
+  "fd.sSDFSDFf app",
+  "app l,o",
+  "fd.s lod",
+  "sdf,sd lit",
 ];
 
-// if you want to avoid the first word
-arr.sort((a, b) => {
-  return a > b ? 1 : -1;
-});
+// reverse each string with only the letters
 
-console.log(arr);
+function reverse(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    const cleaned = arr[i]
+      .match(/[a-zA-Z]/g)
+      .reverse()
+      .join("")
+      .toLowerCase();
+    arr[i] = cleaned;
+  }
+  return arr;
+}
+
+console.log(reverse(arr));

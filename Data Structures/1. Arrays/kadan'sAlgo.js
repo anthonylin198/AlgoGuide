@@ -17,6 +17,7 @@ Single pass Solution: Check the current index, versus the sum of current index p
 [3, 8, -1, 1, 4, 2, 5, 9, 16, 19, 10, 16, 19, 20]
 
 
+Essentially dynamic programming, but only need to keep track of 2 values
 
 
 */
@@ -26,7 +27,6 @@ function kadanesAlgorithm(array) {
   let recentSum = 0;
   // keep track of the max
   let max = 0;
-
   // for loop to iterate through the array
   for (let i = 0; i < array.length; i++) {
     recentSum = Math.max(recentSum + array[i], array[i]);
