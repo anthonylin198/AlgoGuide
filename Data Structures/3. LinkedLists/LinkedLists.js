@@ -33,6 +33,19 @@ var mergeTwoLists = function (l1, l2) {
   return l1 || l2;
 };
 
+// todo: Reverse a linked list
+function reverseLinkedList(head) {
+  let previousNode = null;
+  let currentNode = head;
+  while (currentNode !== null) {
+    const nextNode = currentNode.next;
+    currentNode.next = previousNode;
+    previousNode = currentNode;
+    currentNode = nextNode;
+  }
+  return previousNode;
+}
+
 const l1 = new Node(1);
 l1.next = new Node(3);
 l1.next.next = new Node(4);
@@ -42,6 +55,8 @@ l2.next = new Node(5);
 l2.next.next = new Node(6);
 l2.next.next.next = new Node(7);
 
-console.log("here", mergeTwoLists(l1, l2));
-console.log("printl1", l1.print());
-console.log("printl2", l2.print());
+// console.log("here", mergeTwoLists(l1, l2));
+// console.log("printl1", l1.print());
+// console.log("printl2", l2.print());
+
+console.log(reverseLinkedList(l1));
