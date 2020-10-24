@@ -52,16 +52,7 @@ function reorderLogFiles(logs) {
     }
   }
 
-  // now we need to sort the wordArr
-  wordArr.sort((a, b) => {
-    const first = a.split(" ");
-    const second = b.split(" ");
-
-    if (first[1] < second[1]) return -1;
-    if (first[1] > second[1]) return -1;
-    // if (first[1] < second[1]) return -1
-    // if (first[1] < second[1]) return -1
-  });
+  // now we need to sort the wordArr - sort the wordArr
 
   // return wordArr concat with digitArr
   return wordArr.concat(digitArr);
