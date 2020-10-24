@@ -53,6 +53,13 @@ function reorderLogFiles(logs) {
   }
 
   // now we need to sort the wordArr - sort the wordArr
+  wordArr.sort((a, b) => {
+    // getting rid of the first word in each array
+    console.log(a);
+    let l1 = a.split(" ").slice(1).join(" "),
+      l2 = b.split(" ").slice(1).join(" ");
+    return l1 > l2 ? 1 : -1;
+  });
 
   // return wordArr concat with digitArr
   return wordArr.concat(digitArr);
@@ -61,9 +68,12 @@ function reorderLogFiles(logs) {
 console.log(
   reorderLogFiles([
     "dig1 8 1 5 1",
+    "let3 art can canz",
     "let1 art can",
+    "let3 art nero",
     "dig2 3 6",
     "let2 own kit dig",
     "let3 art zero",
+    "let3 art kero",
   ])
 );
