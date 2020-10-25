@@ -1,6 +1,6 @@
 /*
 
-Given two non-negative integers num1 and num2 represented as string, return the sum of num1 and num2.
+Given two non-negative integers num1 and num2 represented as string, return the sum of num1 and num2. Purpose of this is because you can not add sum of extremely large numbers
 
 
 The length of both num1 and num2 is < 5100.
@@ -17,32 +17,56 @@ test case: '52' '8'
 output: 60
 
 
+iterate through the string, going one value at a time, starting fomr the large number.
 
 
-do not convert directly. JS will try to match types when possible.
+
+test case : '123999'     '101'
+
+
+sum = '00'
+p1 = 9
+p2 = 1
+carry = 0
+
+123999
+   101
+
+1) 9 + 1 + 0 = 10    carry = 1     p1-- p2--
+2) 9 + 0 + 1 = 10    carry = 1     p1-- p2 --
+3)
+
+
+
+if p1 is less than 0, then we just return 0
+    
 
 */
 
-function AddStrings(num1, num2) {
-  const int1 = 1 * num1;
-  const int2 = 1 * num2;
-
-  return int1 + int2;
-}
-
-var addStrings2 = function (num1, num2) {
-  let len = num1.length > num2.length ? num1.length : num2.length;
-  let l1 = num1.length - 1,
-    l2 = num2.length - 1;
-  let carry = 0,
-    out = "",
-    sum = 0;
-  for (let i = 0; i < len; i++) {
-    sum = parseInt(num1[l1 - i] || 0) + parseInt(num2[l2 - i] || 0) + carry;
-    out = (sum % 10) + out;
-    carry = Math.floor(sum / 10);
+var addStrings = function (num1, num2) {
+  sum = "";
+  p1 = num1.length - 1;
+  p2 = num2.length - 1;
+  let carry = 0;
+  // while p1, or p2, or carry exists
+  while (p1 >= 0 || p2 >= 0 || carry > 0) {
+    // get the first digit and the second digit
+    const firstNum = p1 < 0 ? 0 : num1[p1] - "0";
+    const secondNum = p2 < 0 ? 0 : num2[p2] - "0";
+    // digitSum = digit1 + digit2 + carry
+    const digitSum = firstNum + secondNum + carry;
+    // set sum equal to the first digit in digitSum with % and append to the original carry
+    sum = (digitSum % 10) + sum;
+    // sum = `${digitsSum % 10}${sum}`;  COULD ALSO DO IT THIS WAY
+    // if /%10 >0, we know we can set carry to 1
+    carry = Math.floor(digitSum / 10);
+    // decrement p1 and p2
+    p1--;
+    p2--;
   }
-  if (carry > 0) out = carry + out;
-  return out;
+
+  // reuturn sum
+  return sum;
 };
-console.log(AddStrings("5", "10"));
+
+console.log(addStrings("123499999", "1"));
