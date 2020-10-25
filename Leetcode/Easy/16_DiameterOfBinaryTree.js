@@ -10,50 +10,49 @@ Diameter is the longest path between any 2 nodes of the tree.
           1
          / \
         2   3
-       / \     
-      4   5   
+       / \    \ 
+      4   5    10
+    /      \  
+  3         7
+             \
+              8
+    
 
+    
 
 */
 
 /*
 
-todo: Solution - Find the depth as deep as possible, then the depth as deep as possible on the right side, then add them up
-
-1 --> 2 --> 4 (left side depth is 2)
-1 --> 2 --> 5
+todo: Solution - the largest is not necessaryily have to go through the root. 
+At every node, we find the max height left, and the max height right
 
 
-1 --> 3 (right side depth is 1)
 
 
-              1
-           2     3
-        0    0
-      0       0
 */
 
+// we need to somehow save the leftDepth once it is hit
+
 function diameterOfBinaryTree(root) {
-  // create a variable to store the max
   let max = 0;
 
-  function diameterHelper(root, depth = 0) {
-    // this adds an extra
-    if (root) {
-      // iterate to the left
-      const left = diameterHelper(root.left, depth + 1);
-      // iterate to the right
-      console.log(left);
-      const right = diameterHelper(root.right, depth + 1);
-      // replace max with the current most left + right
-      max = Math.max(max, left + right);
-    }
-    return depth;
+  // create recursive helper function - at every node we look for the height of the left side and the right side
+  function diameterHelper(node) {
+    if (!node) return 0;
+    // find height of left side
+    // find the height of the right side
+    let left = diameterHelper(node.left);
+    let right = diameterHelper(node.right);
+    max = Math.max(left + right, max);
+    // at the end
+    return 1 + Math.max(left, right); // WHYY
   }
   diameterHelper(root);
   return max;
 }
 
+// solution - optimized
 var diameterOfBinaryTree = function (root) {
   let maxSize = 0;
   (function getDepth(node) {
