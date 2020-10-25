@@ -29,8 +29,15 @@ At every node, we find the max height left, and the max height right
 
 
 
-
 */
+
+class Node {
+  constructor(value) {
+    this.val = value;
+    this.left = null;
+    this.right = null;
+  }
+}
 
 // todo: Brute force solution
 function diameterOfBinaryTree(root) {
@@ -68,7 +75,7 @@ function maxDepth(root) {
   return 1 + max;
 }
 
-// todo: more efficient solution
+// todo: more efficient solution - Try to understand it later
 function diameterOfBinaryTree(root) {
   let max = 0;
   // create recursive helper function - at every node we look for the height of the left side and the right side
