@@ -32,7 +32,41 @@ At every node, we find the max height left, and the max height right
 
 */
 
-// we need to somehow save the leftDepth once it is hit
+// todo: Brute force solution
+function diameterOfBinaryTree(root) {
+  // keep track of the max
+  let max = 0;
+
+  // create helperfunction
+  function diameterHelper(root) {
+    // at every node, we check the max depth to the right and left, and compare that to the max
+    if (root) {
+      // create variable to store left side
+      let left = maxDepth(root.left);
+      let right = maxDepth(root.right);
+      max = Math.max(left + right, max);
+      diameterHelper(root.left);
+      diameterHelper(root.right);
+    }
+  }
+
+  diameterHelper(root);
+  return max;
+}
+
+function maxDepth(root) {
+  if (!root) return 0;
+  let max = 0;
+  function maxDepthHelper(root, depth = 0) {
+    if (root) {
+      if (!root.left && !root.right) max = Math.max(max, depth);
+      maxDepthHelper(root.left, depth + 1);
+      maxDepthHelper(root.right, depth + 1);
+    }
+  }
+  maxDepthHelper(root);
+  return 1 + max;
+}
 
 function diameterOfBinaryTree(root) {
   let max = 0;
