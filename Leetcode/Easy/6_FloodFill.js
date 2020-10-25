@@ -74,34 +74,34 @@ function floodFill(image, sr, sc, newColor) {
 }
 
 // todo: Faster solution capturing a lot of the other returns
-var floodFill = function (image, sr, sc, newColor) {
-  const currentColor = image[sr][sc];
+function floodFill(image, sr, sc, newColor) {
+  // we need a way to keep track of the old color
+  const oldColor = image[sr][sc];
+  if (oldColor === newColor) return image;
 
-  traverse(image, currentColor, newColor, sr, sc);
+  function fill(image, i, j, newColor) {
+    // create exit condition, if i is < 0 or j is < 0 or greater
+    if (
+      i < 0 ||
+      j < 0 ||
+      i > image.length - 1 ||
+      j > image[0].length - 1 ||
+      image[i][j] !== oldColor
+    )
+      return;
+    image[i][j] = newColor;
+    fill(image, i - 1, j, newColor);
+    fill(image, i + 1, j, newColor);
+    fill(image, i, j + 1, newColor);
+    fill(image, i, j - 1, newColor);
+  }
 
+  // call the helper - pass in image, sr, sc, newColor
+  fill(image, sr, sc, newColor);
+
+  // return image
   return image;
-};
-
-const traverse = (image, currentColor, newColor, x, y) => {
-  if (newColor === currentColor) return;
-
-  // checking if the value getting checked is less than undefined, or if it is not equal to the current color.
-  if (
-    x < 0 ||
-    y < 0 ||
-    x > image.length - 1 ||
-    y > image[0].length - 1 ||
-    image[x][y] !== currentColor
-  )
-    return;
-
-  image[x][y] = newColor; // start off setting the starting value to the new color
-
-  traverse(image, currentColor, newColor, x + 1, y); // check up
-  traverse(image, currentColor, newColor, x - 1, y); // check right
-  traverse(image, currentColor, newColor, x, y + 1); // check down
-  traverse(image, currentColor, newColor, x, y - 1); // check up
-};
+}
 
 console.log(
   floodFill(
