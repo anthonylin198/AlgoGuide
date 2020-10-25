@@ -68,14 +68,12 @@ function maxDepth(root) {
   return 1 + max;
 }
 
+// todo: more efficient solution
 function diameterOfBinaryTree(root) {
   let max = 0;
-
   // create recursive helper function - at every node we look for the height of the left side and the right side
   function diameterHelper(node) {
     if (!node) return 0;
-    // find height of left side
-    // find the height of the right side
     let left = diameterHelper(node.left);
     let right = diameterHelper(node.right);
     max = Math.max(left + right, max);
@@ -85,16 +83,3 @@ function diameterOfBinaryTree(root) {
   diameterHelper(root);
   return max;
 }
-
-// solution - optimized
-var diameterOfBinaryTree = function (root) {
-  let maxSize = 0;
-  (function getDepth(node) {
-    if (node == null) return 0;
-    let left = getDepth(node.left);
-    let right = getDepth(node.right);
-    maxSize = Math.max(maxSize, left + right);
-    return 1 + Math.max(left, right);
-  })(root);
-  return maxSize;
-};
