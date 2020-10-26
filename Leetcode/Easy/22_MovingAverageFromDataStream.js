@@ -22,7 +22,7 @@ Make sure to really understand the question. MOving averrage of every 3 numbers.
 
 You need to keep a queue to kee track of all of the values
 
-
+KEEP TRACK OF THE QUEUE AND DO THE SLIDING WINDOW APPROACH
 
 
 */
