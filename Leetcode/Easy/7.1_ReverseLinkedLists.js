@@ -25,7 +25,6 @@ keep track of the previous node, as well as the current node. Previous null shou
 function reverse(head) {
   let prevNode = null;
   let currNode = head;
-
   // create while loop to iterate through the linked list
   while (currNode) {
     // must keep track of the next node
