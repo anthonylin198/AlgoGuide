@@ -56,7 +56,7 @@ l2.next.next = new Node(6);
 l2.next.next.next = new Node(7);
 
 // console.log("here", mergeTwoLists(l1, l2));
-// console.log("printl1", l1.print());
+console.log("printl1", l1.print());
 // console.log("printl2", l2.print());
 
 console.log(reverseLinkedList(l1));
