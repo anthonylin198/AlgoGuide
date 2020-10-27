@@ -53,7 +53,7 @@ is it assumed that tree s is always larger?
 
 // check whether tree t has ex
 
-function bstMatch(s, t) {
+function isSubtree(s, t) {
   let checker = false;
   // create a helper function
   function traverse(s, t) {
@@ -61,7 +61,7 @@ function bstMatch(s, t) {
     if (!s) return;
     // is s.val equals t.val
     if (s.val === t.val) {
-      if (bstMatchHelperFunction(s, t)) {
+      if (bstMatchHelper(s, t)) {
         checker = true;
       }
     }
@@ -75,14 +75,19 @@ function bstMatch(s, t) {
 // create the bst Helper function - if
 function bstMatchHelper(s, t) {
   // if s && t does not have right or left values, return true
-  const check = true;
+  let check = true;
   function matchHelper(s, t) {
-    // if all the side are not equal, then we can return
-    if (s.val !== t.val || (s && !t)) {
-      check = false;
+    if (!s && !t) {
+      return;
     }
-    bstMatchHelper(s.left, t.left);
-    bstMatchHelper(s.right, t.right);
+    // if all the side are not equal, then we can return
+    if ((t && !s) || (s && !t) || s.val !== t.val) {
+      console.log("here");
+      check = false;
+      return;
+    }
+    matchHelper(s.left, t.left);
+    matchHelper(s.right, t.right);
   }
   matchHelper(s, t);
   return check;

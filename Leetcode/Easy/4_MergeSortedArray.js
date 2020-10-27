@@ -94,6 +94,16 @@ function mergeSorted(arr1, m, arr2, n) {
   return arr1;
 }
 
+// ! Start from the back    O(n) solution
+var merge = function (nums1, m, nums2, n) {
+  let idx1 = m - 1,
+    idx2 = n - 1,
+    idx3 = m + n - 1;
+  while (idx2 >= 0) {
+    nums1[idx3--] = nums1[idx1] > nums2[idx2] ? nums1[idx1--] : nums2[idx2--];
+  }
+};
+
 // todo: Inplace solution starting from the end
 function merge2(nums1, m, nums2, n) {
   // create 3 pointers, m-1, n-1, and m+n - 1
