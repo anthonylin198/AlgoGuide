@@ -1,78 +1,69 @@
 /*
-An image is represented by a 2-D array of integers, each integer representing the pixel value of the image (from 0 to 65535).
 
-Given a coordinate (sr, sc) representing the starting pixel (row and column) of the flood fill, and a pixel value newColor, "flood fill" the image.
+Merge two sorted linked lists and return it as a new sorted list. New list should be made by splicing together the nodes of the first two lists
 
-To perform a "flood fill", consider the starting pixel, plus any pixels connected 4-directionally to the starting pixel of the same color as the starting pixel, plus any pixels connected 4-directionally to those pixels (also with the same color as the starting pixel), and so on. Replace the color of all of the aforementioned pixels with the newColor.
+Input: l1 = [1,2,4], l2 = [1,3,4]
+Output: [1,1,2,3,4,4]
 
-At the end, return the modified image.
+Input: l1 = [], l2 = []
+Output: []
 
 
-image = [[1,1,1],[1,1,0],[1,0,1]]
-sr = 1, sc = 1, newColor = 2
-Output: [[2,2,2],[2,2,0],[2,0,1]]
-
-From the center of the image (with position (sr, sc) = (1, 1)), all pixels connected 
-by a path of the same color as the starting pixel are colored with the new color.
-Note the bottom corner is not colored 2, because it is not 4-directionally connected
-to the starting pixel.
-
+Input: l1 = [], l2 = [0]
+Output: [0]
 
 */
 
 /*
 
-      
-[1,2,1]
-[1,1,0]
-[1,0,1]
-
-check top, left, bottom, right  -- starting point at [i, j]
-
-top: [i-1, j]
-left: [i, j - 1]
-bottom: [i+1,j]
-right: [i, j+1]
+if either list is non existent, just return the other
 
 
-recursive function, checking if the top, left, bottom, and right at the same value or "color"
+The typical case - keep a pointer at start of l1 and start of l2
+Input: l1 = [1,2,4], l2 = [1,3,10]
+Output: [1,1,2,3,4,4]
 
-exit conditions: if i is > arr.length; or is < 0     and if j is > arr[0].length or is < 0
+keep track of l1 and l2
 
 
+if l2[p2] < l1[p1]  -> insert before
 
-O(n) time and O(n) space from the recursive call stack
+1 -> 1 -> 2 -> 4
+
+if l2[p2] > l1[p1] -> go to next value in l1
+
+
+keep track of the previous node - starting at null. So if it is null we know it is the first value
+
+
+think of the very first example
+
+
+1 -> 2 -> 4        1 -> 3 -> 10
+
+2 must point to the 3 and 3 to the 4
+1-> 2 -> 3 -> 4
 
 */
 
-function floodFill(image, sr, sc, newColor) {
-  // keep track of thte original color
-  const originalColor = image[sr][sc];
-  if (newColor === originalColor) return image;
-  // create recursive helper function
-  function floodHelper(image, i, j, newColor) {
-    // exit condition - if any hit
-    if (
-      i > image.length - 1 ||
-      j > image[0].length - 1 ||
-      i < 0 ||
-      j < 0 ||
-      image[i][j] !== originalColor
-    ) {
-      return;
+// understand the mergelinkedlists
+function mergeTwoLists(l1, l2) {
+  // create pointers for l1 and l2, also keep track of prev node
+  let p1 = l1;
+  let p1Prev = null;
+  let p2 = l2;
+  // create while loop that continues while l1 and l2 are not null
+  while (p1 && p2) {
+    // if the value at p1 is greater than p2
+    if (p1.val > p2.val) {
+      p1 = p1.next;
+      p1Prev = p1;
+    } else {
+      // insert before
+      const temp = p2;
+      p1Prev = temp;
+      p1Prev.next = p1;
+      p2 = p2.next;
     }
-    // fill in the newColor
-    image[i][j] = newColor;
-    // recursive calls, to top, left, bottom, and right
-    floodHelper(image, i - 1, j, newColor);
-    floodHelper(image, i + 1, j, newColor);
-    floodHelper(image, i, j - 1, newColor);
-    floodHelper(image, i, j + 1, newColor);
   }
-
-  // call floodHelper
-  floodHelper(image, sr, sc, newColor);
-
-  // return the image
-  return image;
 }
