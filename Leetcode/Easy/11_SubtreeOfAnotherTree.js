@@ -60,30 +60,21 @@ in best case O(M) (subtree found in first step)
 averege (N/2M);
 
 */
+var isSubtree = function (s, t) {
+  // given a node, returns whether they are the same
+  var isSame = function (node1, node2) {
+    if (!node1 && !node2) return true;
+    if (!node1 || !node2 || node1.val != node2.val) return false;
+    return isSame(node1.left, node2.left) && isSame(node1.right, node2.right);
+  };
 
-function isSubtree(s, t) {
-  // while s exists
-  while (s) {
-    if (s.val === t.val) {
-      return checkSubtree(s, t);
-    }
-    const left = isSubtree(s.left, t);
-    const right = isSubtree(s.right, t);
-    if (left || right) {
+  // whether t is a subtree of the given node
+  var dfs = function (node) {
+    if (!node) return false;
+    if (node.val == t.val && isSame(node, t)) {
       return true;
-    } else {
-      return false;
     }
-  }
-  return false;
-}
-
-// helper function
-function checkSubtree(node1, node2) {
-  while (node2) {
-    if (node1.val !== node2.val) return false;
-    const left = checkSubtree(node1.left, node2.left);
-    const right = checkSubtree(node1.right, node1.right);
-    return left && right;
-  }
-}
+    return dfs(node.left) || dfs(node.right);
+  };
+  return dfs(s);
+};
