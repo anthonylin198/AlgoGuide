@@ -33,7 +33,7 @@ and that "hit" isn't the answer even though it occurs more because it is banned.
 */
 
 function mostCommonWord(paragraph, banned) {
-  const cleanParagraph = paragraph.toLowerCase().replace(/[^a-z]/g, " ");
+  const cleanParagraph = paragraph.toLowerCase().replace(/[^a-z]/g, "");
   console.log(cleanParagraph);
 }
 mostCommonWord("Bob hit a ball, the hit BALL flew far after it was hit.");
