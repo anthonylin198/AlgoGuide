@@ -1,85 +1,78 @@
 /*
+An image is represented by a 2-D array of integers, each integer representing the pixel value of the image (from 0 to 65535).
 
-Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
-   - The number of elements initialized in nums1 and nums2 are m and n respectively.
-   - You may assume that nums1 has enough space (size that is equal to m + n) to hold additional elements from nums2.
+Given a coordinate (sr, sc) representing the starting pixel (row and column) of the flood fill, and a pixel value newColor, "flood fill" the image.
+
+To perform a "flood fill", consider the starting pixel, plus any pixels connected 4-directionally to the starting pixel of the same color as the starting pixel, plus any pixels connected 4-directionally to those pixels (also with the same color as the starting pixel), and so on. Replace the color of all of the aforementioned pixels with the newColor.
+
+At the end, return the modified image.
 
 
-Input:
-nums1 = [1,2,3,0,0,0], m = 3
-nums2 = [2,5,6],       n = 3
+image = [[1,1,1],[1,1,0],[1,0,1]]
+sr = 1, sc = 1, newColor = 2
+Output: [[2,2,2],[2,2,0],[2,0,1]]
 
-Output: [1,2,2,3,5,6]
+From the center of the image (with position (sr, sc) = (1, 1)), all pixels connected 
+by a path of the same color as the starting pixel are colored with the new color.
+Note the bottom corner is not colored 2, because it is not 4-directionally connected
+to the starting pixel.
+
 
 */
 
 /*
 
+      
+[1,2,1]
+[1,1,0]
+[1,0,1]
 
-nums1 = [1,2, 7, 0, 0, 0, 0]          m = 3
-nums2 = [2,5,6,8]                n = 4
+check top, left, bottom, right  -- starting point at [i, j]
 
-
-
-todo: Do this without creating an additional array. Use the nums1 array. Whenever we hit a number that in nums1 that is larger than the number in nums 2, we pop off a zero, and insert before
-
-
-p1 = 3
-p2 = 2
-
-[1, 2, 7, 0, 0, 0, 0]
-[1, 2, 2, 7, 0, 0, 0]
-[1, 2, 2, 5, 7, 0, 0]
-[1, 2, 2, 5, 6, 7, 0]
+top: [i-1, j]
+left: [i, j - 1]
+bottom: [i+1,j]
+right: [i, j+1]
 
 
+recursive function, checking if the top, left, bottom, and right at the same value or "color"
 
-first 0 is at index m, and will change as we go along
-
-nums1 = [9, 9, 9, 0, 0, 0, 0]
-nums2 = [2, 5, 6, 8]
-
-If p1 is greater than p2, then we pop 0 off of the end, and splice in the value at nums 2. then increment p1 and p2. 
-If p2 is greater than p1, means every value after can replace each remaining 0 with the values in p2. We need to keep track of the first and last 0
-
-
-If a value in nums 2 is every greater then the last value in nums 1, then we know every number after that value, can replace the remaining zeros
+exit conditions: if i is > arr.length; or is < 0     and if j is > arr[0].length or is < 0
 
 
 
-
-time complexity: O(m)^2   O(1) space    
-
+O(n) time and O(n) space from the recursive call stack
 
 */
 
-// merge the sorted array
-function mergeSorted(arr1, m, arr2, n) {
-  // create p1 starting from 0
-  let p1 = 0;
-  // create p2 starting from 0
-  let p2 = 0;
-  let first0 = m;
-  // while loop that keeps going while p1 < m && p2 < n
-  while (p1 < first0 && p2 < n) {
-    if (arr2[p2] <= arr1[p1]) {
-      arr1.pop();
-      arr1.splice(p1, 0, arr2[p2]);
-      p1++;
-      p2++;
-      first0++;
-    } else {
-      p1++;
+function floodFill(image, sr, sc, newColor) {
+  // keep track of thte original color
+  const originalColor = image[sr][sc];
+  if (newColor === originalColor) return image;
+  // create recursive helper function
+  function floodHelper(image, i, j, newColor) {
+    // exit condition - if any hit
+    if (
+      i > image.length - 1 ||
+      j > image[0].length - 1 ||
+      i < 0 ||
+      j < 0 ||
+      image[i][j] !== originalColor
+    ) {
+      return;
     }
-  }
-  while (p2 < n) {
-    arr1[first0] = arr2[p2];
-    p2++;
-    first0++;
+    // fill in the newColor
+    image[i][j] = newColor;
+    // recursive calls, to top, left, bottom, and right
+    floodHelper(image, i - 1, j, newColor);
+    floodHelper(image, i + 1, j, newColor);
+    floodHelper(image, i, j - 1, newColor);
+    floodHelper(image, i, j + 1, newColor);
   }
 
-  // return arr1
-  return arr1;
+  // call floodHelper
+  floodHelper(image, sr, sc, newColor);
+
+  // return the image
+  return image;
 }
-
-console.log(mergeSorted([9, 9, 9, 0, 0, 0, 0], 7, [2, 5, 6, 8], 4));
