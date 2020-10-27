@@ -1,69 +1,39 @@
 /*
 
-Merge two sorted linked lists and return it as a new sorted list. New list should be made by splicing together the nodes of the first two lists
+Given a paragraph and a list of banned words, return the most frequent word that is not in the list of banned words.  It is guaranteed there is at least one word that isn't banned, and that the answer is unique.
 
-Input: l1 = [1,2,4], l2 = [1,3,4]
-Output: [1,1,2,3,4,4]
+Words in the list of banned words are given in lowercase, and free of punctuation.  Words in the paragraph are not case sensitive.  The answer is in lowercase.
 
-Input: l1 = [], l2 = []
-Output: []
+paragraph = "Bob hit a ball, the hit BALL flew far after it was hit."
+banned = ["hit"]
+
+Output: "ball"
 
 
-Input: l1 = [], l2 = [0]
-Output: [0]
+Explanation: 
+"hit" occurs 3 times, but it is a banned word.
+"ball" occurs twice (and no other word does), so it is the most frequent non-banned word in the paragraph. 
+Note that words in the paragraph are not case sensitive,
+that punctuation is ignored (even if adjacent to words, such as "ball,"), 
+and that "hit" isn't the answer even though it occurs more because it is banned.
+
 
 */
 
 /*
 
-if either list is non existent, just return the other
+1) clean up the string and turn to lowercase, and only include
 
 
-The typical case - keep a pointer at start of l1 and start of l2
-Input: l1 = [1,2,4], l2 = [1,3,10]
-Output: [1,1,2,3,4,4]
-
-keep track of l1 and l2
+2) single pass, create a cache to store the word and the values
 
 
-if l2[p2] < l1[p1]  -> insert before
 
-1 -> 1 -> 2 -> 4
-
-if l2[p2] > l1[p1] -> go to next value in l1
-
-
-keep track of the previous node - starting at null. So if it is null we know it is the first value
-
-
-think of the very first example
-
-
-1 -> 2 -> 4        1 -> 3 -> 10
-
-2 must point to the 3 and 3 to the 4
-1-> 2 -> 3 -> 4
 
 */
 
-// understand the mergelinkedlists
-function mergeTwoLists(l1, l2) {
-  // create pointers for l1 and l2, also keep track of prev node
-  let p1 = l1;
-  let p1Prev = null;
-  let p2 = l2;
-  // create while loop that continues while l1 and l2 are not null
-  while (p1 && p2) {
-    // if the value at p1 is greater than p2
-    if (p1.val > p2.val) {
-      p1 = p1.next;
-      p1Prev = p1;
-    } else {
-      // insert before
-      const temp = p2;
-      p1Prev = temp;
-      p1Prev.next = p1;
-      p2 = p2.next;
-    }
-  }
+function mostCommonWord(paragraph, banned) {
+  const cleanParagraph = paragraph.toLowerCase().replace(/[^a-z]/g, " ");
+  console.log(cleanParagraph);
 }
+mostCommonWord("Bob hit a ball, the hit BALL flew far after it was hit.");
