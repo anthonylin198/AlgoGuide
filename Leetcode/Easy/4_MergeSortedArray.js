@@ -65,6 +65,35 @@ Keep track of 2 pointers at m-1 and n-1. Keep track of last of the combined at  
 1
 */
 
+// todo: Own Solution
+function mergeSorted(arr1, m, arr2, n) {
+  // create p1 starting from 0
+  let p1 = 0;
+  // create p2 starting from 0
+  let p2 = 0;
+  let first0 = m;
+  // while loop that keeps going while p1 < m && p2 < n
+  while (p1 < first0 && p2 < n) {
+    if (arr2[p2] <= arr1[p1]) {
+      arr1.pop();
+      arr1.splice(p1, 0, arr2[p2]);
+      p1++;
+      p2++;
+      first0++;
+    } else {
+      p1++;
+    }
+  }
+  while (p2 < n) {
+    arr1[first0] = arr2[p2];
+    p2++;
+    first0++;
+  }
+
+  // return arr1
+  return arr1;
+}
+
 // todo: Inplace solution starting from the end
 function merge2(nums1, m, nums2, n) {
   // create 3 pointers, m-1, n-1, and m+n - 1
