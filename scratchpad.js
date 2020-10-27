@@ -1,39 +1,89 @@
 /*
 
-Given a paragraph and a list of banned words, return the most frequent word that is not in the list of banned words.  It is guaranteed there is at least one word that isn't banned, and that the answer is unique.
 
-Words in the list of banned words are given in lowercase, and free of punctuation.  Words in the paragraph are not case sensitive.  The answer is in lowercase.
-
-paragraph = "Bob hit a ball, the hit BALL flew far after it was hit."
-banned = ["hit"]
-
-Output: "ball"
+Given two non-empty binary trees s and t, check whether tree t has exactly the same structure and node values with a subtree of s. 
+A subtree of s is a tree consists of a node in s and all of this node's descendants. The tree s could also be considered as a subtree of itself.
 
 
-Explanation: 
-"hit" occurs 3 times, but it is a banned word.
-"ball" occurs twice (and no other word does), so it is the most frequent non-banned word in the paragraph. 
-Note that words in the paragraph are not case sensitive,
-that punctuation is ignored (even if adjacent to words, such as "ball,"), 
-and that "hit" isn't the answer even though it occurs more because it is banned.
+CASE 1 returns true
+     3
+    / \
+   4   5
+  / \
+ 1   2
+
+
+
+   4 
+  / \
+ 1   2
+
+
+CASE 2 returns false
+     3
+    / \
+   4   5
+  / \
+ 1   2
+    /
+   0
+
+
+   4
+  / \
+ 1   2
+
 
 
 */
 
 /*
 
-1) clean up the string and turn to lowercase, and only include
+iterate through each node of the binary tree. if an equal value is found, check if they are equal
 
 
-2) single pass, create a cache to store the word and the values
+checkBST Function: we need both side to go until they are null. If one is null and the other is not, the nwe return false
+
+is it assumed that tree s is always larger?
 
 
 
 
 */
 
-function mostCommonWord(paragraph, banned) {
-  const cleanParagraph = paragraph.toLowerCase().replace(/[^a-z]/g, "");
-  console.log(cleanParagraph);
+// check whether tree t has ex
+
+function bstMatch(s, t) {
+  let checker = false;
+  // create a helper function
+  function traverse(s, t) {
+    // if s doesn't exist, then return
+    if (!s) return;
+    // is s.val equals t.val
+    if (s.val === t.val) {
+      if (bstMatchHelperFunction(s, t)) {
+        checker = true;
+      }
+    }
+    traverse(s.left, t);
+    traverse(s.right, t);
+  }
+  traverse(s, t);
+  return checker;
 }
-mostCommonWord("Bob hit a ball, the hit BALL flew far after it was hit.");
+
+// create the bst Helper function - if
+function bstMatchHelper(s, t) {
+  // if s && t does not have right or left values, return true
+  const check = true;
+  function matchHelper(s, t) {
+    // if all the side are not equal, then we can return
+    if (s.val !== t.val || (s && !t)) {
+      check = false;
+    }
+    bstMatchHelper(s.left, t.left);
+    bstMatchHelper(s.right, t.right);
+  }
+  matchHelper(s, t);
+  return check;
+}
