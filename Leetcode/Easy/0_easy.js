@@ -1,6 +1,6 @@
 // todo: String - Be comfortable with replace and match from regex as well as String.charCodeAt, String.fromCharCode, and substr
 
-// todo: Binary Search Tree - Understand when to use the while, and when not to.
+// todo: Binary Search - Understand when to use the while, and when not to.
 
 // todo: Creating classes - Taking the average sum
 

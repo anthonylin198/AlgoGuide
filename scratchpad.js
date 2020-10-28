@@ -1,94 +1,32 @@
 /*
 
+Maximum subarray of the array
 
-Given two non-empty binary trees s and t, check whether tree t has exactly the same structure and node values with a subtree of s. 
-A subtree of s is a tree consists of a node in s and all of this node's descendants. The tree s could also be considered as a subtree of itself.
+Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
 
-
-CASE 1 returns true
-     3
-    / \
-   4   5
-  / \
- 1   2
+Follow up: If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
 
 
-
-   4 
-  / \
- 1   2
-
-
-CASE 2 returns false
-     3
-    / \
-   4   5
-  / \
- 1   2
-    /
-   0
-
-
-   4
-  / \
- 1   2
-
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+Output: 6
+Explanation: [4,-1,2,1] has the largest sum = 6.
 
 
 */
 
 /*
 
-iterate through each node of the binary tree. if an equal value is found, check if they are equal
+
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
 
 
-checkBST Function: we need both side to go until they are null. If one is null and the other is not, the nwe return false
+max: 6
 
-is it assumed that tree s is always larger?
+[-2, 1, -2, 4, 3, 5, 6]
+
+
 
 
 
 
 */
-
-// check whether tree t has ex
-
-function isSubtree(s, t) {
-  let checker = false;
-  // create a helper function
-  function traverse(s, t) {
-    // if s doesn't exist, then return
-    if (!s) return;
-    // is s.val equals t.val
-    if (s.val === t.val) {
-      if (bstMatchHelper(s, t)) {
-        checker = true;
-      }
-    }
-    traverse(s.left, t);
-    traverse(s.right, t);
-  }
-  traverse(s, t);
-  return checker;
-}
-
-// create the bst Helper function - if
-function bstMatchHelper(s, t) {
-  // if s && t does not have right or left values, return true
-  let check = true;
-  function matchHelper(s, t) {
-    if (!s && !t) {
-      return;
-    }
-    // if all the side are not equal, then we can return
-    if ((t && !s) || (s && !t) || s.val !== t.val) {
-      console.log("here");
-      check = false;
-      return;
-    }
-    matchHelper(s.left, t.left);
-    matchHelper(s.right, t.right);
-  }
-  matchHelper(s, t);
-  return check;
-}
