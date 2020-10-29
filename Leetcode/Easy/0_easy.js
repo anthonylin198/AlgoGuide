@@ -47,12 +47,13 @@ continusly check the middle. Check first bad version to get a sense of this
 /*
 Remember the carry needs to be part of the conditional in cases like 9 + 1 = 10
 
-keep p1, p2 at end
-
-
 */
 
 // todo: Creating classes - Taking the average sum
+/*
+
+
+*/
 
 // todo: LinkedList - Be able to iterate through linkedlist, keep track of pointers -- reverse and merge linkedlists
 
