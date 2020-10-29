@@ -1,5 +1,11 @@
 // todo: String - Be comfortable with replace and match from regex as well as String.charCodeAt, String.fromCharCode, and substr
 
+// String.charCodeAt to check between
+
+// verifying alien dictionary, be able to manually check if letters are sorted
+
+// todo: Sorting
+
 // todo: Binary Search - Understand when to use the while, and when not to.
 
 // todo: Creating classes - Taking the average sum

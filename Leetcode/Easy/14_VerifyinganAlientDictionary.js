@@ -38,46 +38,44 @@ sort the words
 
 */
 
-const isAlienSorted = (words, order) => {
-  // create cache to keep all the value
+// brute force checking letters
+function isAlienSorted(words, order) {
+  // create an empty object to soter the order and asign numbers
   const cache = {};
+  // loop through the order character
   for (let i = 0; i < order.length; i++) {
     cache[order[i]] = i;
   }
 
-  // iterate through all the words, and continuously check if the next is greater than the first. if not false. If they are the same value, then we need to keep iterating through
-  for (let i = 1; i < words.length; words++) {
-    const firstWord = words[i - 1];
-    const secondWord = words[i];
-    if (cache[secondWord[0]] < cache[firstWord[0]]) return false;
-    else if (cache[secondWord[0]] === cache[firstWord[0]]) {
-      let pointer1 = 1;
-      let pointer2 = 1;
-      while (firstWord[pointer1] === secondWord[pointer2]) pointer1++;
-    }
-  }
-};
-
-const isAlienSorted2 = (words, order) => {
-  // Creating the map
-  let charPosition = new Map();
-  for (let position = 0; position < order.length; position++) {
-    let char = order[position];
-    charPosition.set(char, position);
-  }
-
-  // iterating through the words
+  // iterate throug the words arr, comparing letters along the way. Start from i = 1, and check i - 1
   for (let i = 1; i < words.length; i++) {
-    let prev = words[i - 1],
-      curr = words[i];
-    if (charPosition.get(prev[0]) > charPosition.get(curr[0])) return false;
-    else if (prev[0] === curr[0]) {
-      let pointer = 1;
-      while (prev[pointer] === curr[pointer]) pointer++;
-      if (curr[pointer] === undefined) return false;
-      if (charPosition.get(prev[pointer]) > charPosition.get(curr[pointer]))
-        return false;
+    if (!verifyOrder(words[i - 1], words[i], cache)) {
+      return false;
     }
   }
+
   return true;
-};
+}
+
+// helper function to check order. if word1 is less, then confirmed
+function verifyOrder(word1, word2, cache) {
+  // create a pointer for word 1 and word2
+  let p1 = 0;
+  let p2 = 0;
+  while (p1 < word1.length && p2 < word2.length) {
+    console.log(word1[p1], word2[p2]);
+    if (cache[word1[p1]] < cache[word2[p2]]) {
+      return true;
+    } else if (cache[word1[p1]] > cache[word2[p2]]) {
+      return false;
+    }
+    p1++;
+    p2++;
+  }
+  // if we make it outside. Mean was always equal, if word 1 exists, return false
+  if (p1 === word1.length) {
+    return true;
+  } else {
+    return false;
+  }
+}
