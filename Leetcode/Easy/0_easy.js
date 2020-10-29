@@ -18,7 +18,9 @@ REGEX METHODS
 
 
 
-slice and substr essentially do the same
+slice and substr essentially do the same. Can just add together
+
+arr.slice(0, i) + arr.slice(i+1) this would get rid of the middle character each time
 
 */
 
