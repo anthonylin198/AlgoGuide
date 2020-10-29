@@ -32,8 +32,7 @@ SORT METHOD: return -1 for in order an 1 for not in order
 MANUAL: Be able to use 2 pointers and manually sort as you need. Learn some of 
 the other sorting algorithms later as well
 
-/*
-
+*/
 
 // todo: Binary Search - Divide and Conquer
 
@@ -43,4 +42,4 @@ the other sorting algorithms later as well
 
 // todo: LinkedList - Be able to iterate through linkedlist, keep track of pointers -- reverse and merge linkedlists
 
-// todo: Binary Trees - Be able to iterate through DFS and BFS. Understand saving variables and recursion then returning. Better at mapping solutions
+// todo: Binary Trees - Be able to iterate through DFS and BFS. Understand saving variables and recursion then returning.
