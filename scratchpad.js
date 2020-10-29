@@ -1,62 +1,55 @@
 /*
 
-Given a non-empty string s, you may delete at most one character. 
-Judge whether you can make it a palindrome.
+Given two non-negative integers num1 and num2 represented as string, return the sum of num1 and num2. Purpose of this is because you can not add sum of extremely large numbers
 
-Input: "aba"
-Output: True
 
-Input: "abca"
-Output: True
-Explanation: You could delete the character 'c'.
-
+The length of both num1 and num2 is < 5100.
+Both num1 and num2 contains only digits 0-9.
+Both num1 and num2 does not contain any leading zero.
+You must not use any built-in BigInteger library or convert the inputs to integer directly.
 
 */
 
 /*
-
-Check if the string is a substring after trying every possible substring
-
-
-
-aba
-
-aa
-
-ab
+   0111
+1239999
++   101
+_______
+    100
 
 
-Input: "racectar" -- iterate through the array, find new substring and check if it is a substring
 
-racectar : false
-acectar : false
-rcectar : false
-raectar : false
-racctar L false
-racetar : false
-racecar : true
+Start from the last digit in bother arrays, and continuously add num1 + num2 + carry
+Push the new number to new string: string = newDigit + String
 
+"1239999"
+'101"
 
-racctectar
+1: "0"  
+2: "00"
+3: "100"
 
-
-rr
-aa
-ct
-
-
-if cutting neither of these will work, return false
-
+... 
 
 */
 
-// substring includes first, not last
-function validPalindromeII(string) {
-  // check if the original is a valid substring
-  // for loop iterating through all characters in the string
-  for (let i = 0; i < string.length; i++) {
-    // create new string
-    const newSubstring = string.substr(0, i) + string.substr(i + 1);
+function addStrings(num1, num2) {
+  // create 2 pointer variables for num1.lenght and num2.length
+  let p1 = num1.length - 1;
+  let p2 = num2.length - 1;
+  let carry = 0;
+  let newNum = "";
+  // while the numbers are greater than
+  while (p1 >= 0 || p2 >= 0 || carry > 0) {
+    digit1 = p1 >= 0 ? parseInt(num1[p1]) : 0;
+    digit2 = p2 >= 0 ? parseInt(num2[p2]) : 0;
+    // find the sum: firstDigit + seconddigit + carry
+    let digitSum = digit1 + digit2 + carry;
+    carry = digitSum >= 10 ? 1 : 0;
+    // take the first digit in the sum and push
+    newNum = (digitSum % 10) + newNum;
+    p1--;
+    p2--;
   }
-  // return
+  return newNum;
 }

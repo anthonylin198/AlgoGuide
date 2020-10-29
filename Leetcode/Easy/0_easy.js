@@ -35,8 +35,22 @@ the other sorting algorithms later as well
 */
 
 // todo: Binary Search - Divide and Conquer
+/*
+
+Remember to not double check values. KEEP TRACK OF start and the end, and you want to
+continusly check the middle. Check first bad version to get a sense of this
+
+
+*/
 
 // todo: Carry Over : Adding strings or binary
+/*
+Remember the carry needs to be part of the conditional in cases like 9 + 1 = 10
+
+keep p1, p2 at end
+
+
+*/
 
 // todo: Creating classes - Taking the average sum
 
