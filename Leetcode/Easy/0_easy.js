@@ -1,8 +1,24 @@
 // todo: String - Be comfortable with replace and match from regex as well as String.charCodeAt, String.fromCharCode, and substr
 
-// String.charCodeAt to check between
+/*
 
-// verifying alien dictionary, be able to manually check if letters are sorted
+String.charCodeAt
+ 
+    if (((code >= 48) && (code <= 57))  // numbers
+    || ((code >= 65) && (code <= 90))  // uppercase
+    || ((code >= 97) && (code <= 122))) {  // lowercase
+
+    LOWERCASE TO UPPERCASE, WE NEED TO ADD 32
+
+
+
+REGEX METHODS
+      replace(/[^a-z0-9]/g, "") -- this will only keep letters and numbers
+      matches(/[a-z][0-9]/g)     -- turns into array of characters and matches
+
+
+
+*/
 
 // todo: Sorting
 
