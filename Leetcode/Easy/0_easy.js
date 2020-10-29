@@ -49,6 +49,8 @@ Remember the carry needs to be part of the conditional in cases like 9 + 1 = 10
 
 */
 
+// todo: Simple Recursion
+
 // todo: Creating classes - Taking the average sum
 /*
 
