@@ -30,7 +30,7 @@ function addNested(arr, depth = 1) {
   return sum;
 }
 
-// nest way 1 + 2(x + 3(x))
+// nest way 1 + 2(x + 3(x)) --- space would be O(d) -- from the recursive call stack
 function addNested2(arr, depth = 1) {
   // keep track of the sum
   let sum = 0;
