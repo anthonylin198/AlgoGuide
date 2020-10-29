@@ -18,6 +18,8 @@ REGEX METHODS
 
 
 
+slice and substr essentially do the same
+
 */
 
 // todo: Sorting
