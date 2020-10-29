@@ -48,23 +48,59 @@ todo: Better solution -- start from the last and the first, if the last is not t
 
 */
 
+// Binary search
 var solution = function (isBadVersion) {
-  /**
-   * @param {integer} n Total versions
-   * @return {integer} The first bad version
-   */
   return function (n) {
-    // binary search
-    var start = 1,
-      end = n;
-    while (start < end) {
-      var mid = Math.floor(start + (end - start) / 2);
+    let min = null;
+    let start = 1;
+    let end = n;
+
+    while (start <= end) {
+      const mid = Math.floor((start + end) / 2);
+
       if (isBadVersion(mid)) {
-        end = mid; // look on left side of mid
+        min = mid;
+        end = mid - 1;
       } else {
-        start = mid + 1; // look on the right side of mid
+        start = mid + 1;
       }
     }
-    return start;
+    return min;
   };
 };
+
+/*
+
+6 is the bad one. Keep track of the minimum, starter, and null
+
+min = null
+start = 1
+end = n
+
+[1,2,3,4,5,6,7]
+
+[5,6,7]
+
+
+
+*/
+function isBadVersion() {
+  return function (n) {
+    let min = null;
+    let start = 1;
+    let end = n;
+
+    while (start <= end) {
+      const mid = Math.floor(start + end / 2);
+
+      if (isBadVersion(mid)) {
+        // if it is true, then we need to check if there is earlier
+        min = mid;
+        end = mid - 1;
+      } else {
+        start = mid + 1;
+      }
+    }
+    return min;
+  };
+}
