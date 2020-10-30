@@ -52,15 +52,25 @@ Remember the carry needs to be part of the conditional in cases like 9 + 1 = 10
 // todo: Simple Recursion
 /*
 
+1) Map out the plan of whether you need a helper function, or if can just add to a variable
+    -- Typically if doing a for loop, you can make recursive calls until you hit the end of the for loop
+
 */
 
 // todo: Creating classes - Taking the average sum
 /*
-Remember to not name things in the constructor the same as the names of the methods
+1) Remember to not name things in the constructor the same as the names of the methods
 that you are going to create
 
 */
 
 // todo: LinkedList - Be able to iterate through linkedlist, keep track of pointers -- reverse and merge linkedlists
+/*
+
+1) Remember to store next in temp, before they get manipulated
+2) keep track of the pointers
+3) If you set p1=p2, p1 will no longer point to l1. However, p1.next=p2 would still pointer to p1
+
+*/
 
 // todo: Binary Trees - Be able to iterate through DFS and BFS. Understand saving variables and recursion then returning.
