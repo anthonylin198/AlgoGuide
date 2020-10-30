@@ -50,10 +50,14 @@ Remember the carry needs to be part of the conditional in cases like 9 + 1 = 10
 */
 
 // todo: Simple Recursion
+/*
+
+*/
 
 // todo: Creating classes - Taking the average sum
 /*
-
+Remember to not name things in the constructor the same as the names of the methods
+that you are going to create
 
 */
 
