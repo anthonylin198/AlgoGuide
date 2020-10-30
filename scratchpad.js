@@ -19,7 +19,8 @@ function playground(head) {
   let currentNode = head;
   const nextNode = currentNode.next;
   currentNode.next = null; // you can't change the same shit directly
-  console.log(nextNode.print());
+  console.log(nextNode.print()); // this would be the entire thing
+  console.log(currentNode.print()); // this would be 1 -> null
 }
 
 // test 2
@@ -36,7 +37,7 @@ l1.next.next = new Node(3);
 l1.next.next.next = new Node(4);
 l1.next.next.next.next = new Node(5);
 
-// playground(l1);
+playground(l1);
 
 // playground2(l1);
 
