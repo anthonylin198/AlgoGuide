@@ -54,6 +54,7 @@ Remember the carry needs to be part of the conditional in cases like 9 + 1 = 10
 
 1) Map out the plan of whether you need a helper function, or if can just add to a variable
     -- Typically if doing a for loop, you can make recursive calls until you hit the end of the for loop
+2) Making a variable += to recursive call
 
 */
 
@@ -67,9 +68,15 @@ that you are going to create
 // todo: LinkedList - Be able to iterate through linkedlist, keep track of pointers -- reverse and merge linkedlists
 /*
 
+NOT SURE ABOUT SOME OF THESE, MAKE SURE TO EDIT AND PLAY AROUND
 1) Remember to store next in temp, before they get manipulated
 2) keep track of the pointers
 3) If you set p1=p2, p1 will no longer point to l1. However, p1.next=p2 would still pointer to p1
+4) when you change node = node.next, we are not actually changing the value of node. We are just changing the spot of the pointer
+5) REMEMBER if you want to change current node you are on, must directly change the node.val and node.next, cannot do node = node.next
+6) Reverse lnikedlist works, you can save a value temp, then manipulate that exact value
+    - If you need to manipulate node.next , save const temp = node.next
+
 
 */
 

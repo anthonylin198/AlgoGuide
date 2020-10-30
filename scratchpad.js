@@ -1,67 +1,43 @@
-/*
-
-Given a nested list of integers, return the sum of all integers in the list weighted by their depth.
-
-Each element is either an integer, or a list -- whose elements may also be integers or other lists.
-
-
-Input: [[1,1],2,[1,1]]
-Output: 10 
-Explanation: Four 1's at depth 2, one 2 at depth 1.
-
-Input: [1,[4,[6]]]
-Output: 27 
-Explanation: One 1 at depth 1, one 4 at depth 2, and one 6 at depth 3; 1 + 4*2 + 6*3 = 27.
-
-
-
-2nd alternate:
-Input: [1,[4,[6]]]
-Output: 1 + 2(4 + 3(6))
-43
-
-*/
-
-/*
-
-
-Problem 1:
-Input: [1,[4,[6]]]
-
-sum = 1 + * 
-
-1, [2 *4] + 3 * 6 -- don't nest the multiplication
-
-
-
-
-
-
-
-
-
-sum([1,[4,[6]]])     end of this iteration : sum = 1
-sum([4], [6])             end of this iteration: sum = 5
-
-
-
-
-
-
-*/
-
-function sum(arr, depth = 1) {
-  // create a variable to store the sum
-  let totalSum = 0;
-  // create a loop that will iterate through the array
-  for (let i = 0; i < arr.length; i++) {
-    if (Array.isArray(arr[i])) {
-      totalSum += sum(arr[i], depth + 1);
-    } else {
-      totalSum += arr[i];
-    }
+class Node {
+  constructor(value) {
+    this.val = value;
+    this.next = null;
   }
-  return totalSum * depth;
+
+  print() {
+    const arr = [];
+    let node = this;
+    while (node) {
+      arr.push(node.val);
+      node = node.next;
+    }
+    return arr;
+  }
 }
 
-console.log(sum([1, [4, [6]]]));
+function playground(head) {
+  let currentNode = head;
+  const nextNode = currentNode.next;
+  currentNode.next = null; // you can't change the same shit directly
+  console.log(nextNode.print());
+}
+
+// test 2
+function playground2(head) {
+  let currentNode = head;
+  const nextNode = currentNode.next;
+  currentNode.next.next = null; // you can't change the same shit directly
+  console.log(nextNode.print());
+}
+
+const l1 = new Node(1);
+l1.next = new Node(2);
+l1.next.next = new Node(3);
+l1.next.next.next = new Node(4);
+l1.next.next.next.next = new Node(5);
+
+// playground(l1);
+
+// playground2(l1);
+
+// if you need to man
