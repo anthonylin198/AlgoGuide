@@ -1,44 +1,54 @@
+/*
+
+                  20
+                10  30
+               8 15   50
+              5
+
+*/
+
 class Node {
   constructor(value) {
     this.val = value;
-    this.next = null;
+    this.left = null;
+    this.right = null;
   }
+}
 
-  print() {
-    const arr = [];
-    let node = this;
-    while (node) {
-      arr.push(node.val);
-      node = node.next;
+// DFS -- go as far down as possible then add
+function depthFirstSearch(head, arr = []) {
+  if (!head) {
+    return;
+  }
+  depthFirstSearch(head.left, arr);
+  arr.push(head.val);
+  depthFirstSearch(head.right, arr);
+  return arr; // understand this return array
+}
+
+// Breadth first search -- we need to keep a queue to keep track
+function breadthFirstSearch(head, arr = []) {
+  const queue = [head];
+  while (queue.length) {
+    const current = queue.shift(); // shift the queue over
+    arr.push(current.val);
+    if (current.left) {
+      queue.push(current.left);
     }
-    return arr;
+    if (current.right) {
+      queue.push(current.right);
+    }
   }
+  return arr;
 }
 
-function playground(head) {
-  let currentNode = head;
-  const nextNode = currentNode.next;
-  currentNode.next = null; // you can't change the same shit directly
-  console.log(nextNode.print()); // this would be the entire thing
-  console.log(currentNode.print()); // this would be 1 -> null
-}
+const bst = new Node(20);
+bst.left = new Node(10);
+bst.right = new Node(30);
+bst.left.left = new Node(8);
+bst.left.left.left = new Node(5);
+bst.left.right = new Node(15);
+bst.right.right = new Node(50);
 
-// test 2
-function playground2(head) {
-  let currentNode = head;
-  const nextNode = currentNode.next;
-  currentNode.next.next = null; // you can't change the same shit directly
-  console.log(nextNode.print());
-}
-
-const l1 = new Node(1);
-l1.next = new Node(2);
-l1.next.next = new Node(3);
-l1.next.next.next = new Node(4);
-l1.next.next.next.next = new Node(5);
-
-playground(l1);
-
-// playground2(l1);
-
-// if you need to man
+console.log(depthFirstSearch(bst));
+console.log(breadthFirstSearch(bst));
