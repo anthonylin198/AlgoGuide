@@ -63,20 +63,18 @@ Remember the carry needs to be part of the conditional in cases like 9 + 1 = 10
 1) Remember to not name things in the constructor the same as the names of the methods
 that you are going to create
 
+2) Using the sliding window method to avoid the need to every shift in the arr
+
 */
 
 // todo: LinkedList - Be able to iterate through linkedlist, keep track of pointers -- reverse and merge linkedlists
 /*
 
-NOT SURE ABOUT SOME OF THESE, MAKE SURE TO EDIT AND PLAY AROUND
-1) Remember to store next in temp, before they get manipulated
-2) keep track of the pointers
-3) If you set p1=p2, p1 will no longer point to l1. However, p1.next=p2 would still pointer to p1
-4) when you change node = node.next, we are not actually changing the value of node. We are just changing the spot of the pointer
-5) REMEMBER if you want to change current node you are on, must directly change the node.val and node.next, cannot do node = node.next
-6) Reverse lnikedlist works, you can save a value temp, then manipulate that exact value
-    - If you need to manipulate node.next , save const temp = node.next
-
+1) Remember to store next in temp, before they get manipulated.
+      - const temp = node.next       node.next = null        temp is still node.next 
+      - const temp = node.next       node.next.next = 5      TEMP IS NO LONGER THE SAME
+2) when you change node = node.next, we are not actually changing the value of node. We are just changing the spot of the pointer
+3) REMEMBER if you want to change current node you are on, must directly change the node.val and node.next, cannot do node = node.next
 
 */
 
