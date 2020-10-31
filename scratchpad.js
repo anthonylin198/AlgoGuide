@@ -1,54 +1,41 @@
 /*
 
-                  20
-                10  30
-               8 15   50
-              5
+Subtree of another subtree. Every time we see a value that is equal to hte node.value, we check if that subtree is exactly identical to the given tree
+
+
+
+BETTER UNDERSTAND THE CALL STACK, WHY DOESN'T YOUR SOLUTION WORK. Better understanding of traversal, then you can logic your way through this question
+
 
 */
 
-class Node {
-  constructor(value) {
-    this.val = value;
-    this.left = null;
-    this.right = null;
-  }
-}
-
-// DFS -- go as far down as possible then add
-function depthFirstSearch(head, arr = []) {
-  if (!head) {
+function isSubtree(s, t, isEqual = false) {
+  // depth first search through the tree, if s.val = t.val, call the helper funciton
+  if (!s) {
     return;
   }
-  depthFirstSearch(head.left, arr);
-  arr.push(head.val);
-  depthFirstSearch(head.right, arr);
-  return arr; // understand this return array
-}
-
-// Breadth first search -- we need to keep a queue to keep track
-function breadthFirstSearch(head, arr = []) {
-  const queue = [head];
-  while (queue.length) {
-    const current = queue.shift(); // shift the queue over
-    arr.push(current.val);
-    if (current.left) {
-      queue.push(current.left);
-    }
-    if (current.right) {
-      queue.push(current.right);
-    }
+  if (s.val === t.val) {
+    isEqual = isSame(s, t);
+    console.log(isEqual);
   }
-  return arr;
+  isSubtree(s.left, t, isEqual);
+  isSubtree(s.right, t, isEqual);
+  return isEqual;
 }
 
-const bst = new Node(20);
-bst.left = new Node(10);
-bst.right = new Node(30);
-bst.left.left = new Node(8);
-bst.left.left.left = new Node(5);
-bst.left.right = new Node(15);
-bst.right.right = new Node(50);
-
-console.log(depthFirstSearch(bst));
-console.log(breadthFirstSearch(bst));
+// helper function comparing
+function isSame(s, t, check = true) {
+  // if s exists but t does not false
+  if (!s && !t) {
+    return;
+  }
+  if ((s && !t) || (!s && t) || s.val !== t.val) {
+    check = false;
+    return;
+  }
+  // iterate both trees at the same time
+  isSame(s.left, t.left, check);
+  isSame(s.right, t.right, check);
+  // return true or false
+  return check;
+}
