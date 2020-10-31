@@ -60,6 +60,41 @@ in best case O(M) (subtree found in first step)
 averege (N/2M);
 
 */
+
+// todo: my solution
+function isSubtree(s, t) {
+  // create a variable to check
+  let check = false;
+  // create helper function for dfs through the tree
+  function dfs(s, t) {
+    if (!s || check === true) {
+      return;
+    }
+    if (s.val === t.val) {
+      check = checkEqual(s, t);
+    }
+    dfs(s.left, t);
+    dfs(s.right, t);
+  }
+  dfs(s, t);
+  // return the check variable
+  return check;
+}
+
+function checkEqual(s, t) {
+  // if s nad t both dont exist
+  if (!s && !t) {
+    return true;
+  }
+  if (!s || !t || s.val !== t.val) {
+    return false;
+  }
+  const left = checkEqual(s.left, t.left);
+  const right = checkEqual(s.right, t.right);
+  return left && right;
+}
+
+// todo: leetcode solution
 var isSubtree = function (s, t) {
   // given a node, returns whether they are the same
   var isSame = function (node1, node2) {

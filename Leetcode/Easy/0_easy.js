@@ -79,3 +79,11 @@ that you are going to create
 */
 
 // todo: Binary Trees - Be able to iterate through DFS and BFS. Understand saving variables and recursion then returning.
+/*
+
+1) Depth first search solve recursively, depth search first solve iteratively with a queue outside of the loop
+2) Use variable, when you need to check both left and right side. Becuase later searches would overwrite the value.
+   - Example if left side is false and right side is true, and you need both sides to be false, false would just be overwridden by true (subtree of another tree)
+
+
+*/
