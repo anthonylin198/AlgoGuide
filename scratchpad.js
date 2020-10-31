@@ -1,14 +1,13 @@
 /*
 
-Given the root node of a binary search tree, return the sum of values of all nodes with value between L and R (inclusive).
+Write a function that takes in an array of integers and return the length of hte longest peak of the array
 
-The binary search tree is guaranteed to have unique values.
 
-Input: root = [10,5,15,3,7,null,18], L = 7, R = 15
-Output: 32
 
-Input: root = [10,5,15,3,7,13,18,1,null,6], L = 6, R = 10
-Output: 23
+array = [1,2,3,3,4,0,10,6,5,-1,-3,2,3]
+
+
+6    // 0, 10, 6, 5, -1, -3
 
 
 
@@ -16,48 +15,39 @@ Output: 23
 
 /*
 
-                                          20
-                              10                    30
-                           5       15                     40
-                        1            20
-  Left: 1
-  Right: 30
+solve: identify the peaks by checking if the left and right values are lees than i
 
-  1 + 5 + 10 + 15 + 20 + 30
+[1,2,3,3,4,0,10,6,5,-1,-3,2,3]
+                                   
+3, 4, 0   - length is 3
 
 
-  Left: 5
-  Right: 30
-
-  5 + 10 + 15  
+left 0, right: -3   -- keep track of startindex (move to the left) and endindex (move to the right)   rightindex - leftindex + 1
 
 
-  1) find the most common parent of the 2 nodes
-    -- search of the left node -- root.left.left
-    -- search for the right node root.right 
-         -- most common is the root
-  
-  2) Find the sum from the most common parent
-
-
-  
-                      
 */
 
-function rangeSum(root, L, R) {
-  // keep track of the sum
-  let sum = 0;
-  // create helper function for dfs, only add if between
-  function sumHelper(root, L, R) {
-    // if !root
-    if (!root) {
-      return;
-    } else if (root.val >= L && root.val <= R) {
-      sum += root.val;
+function longestPeak(arr) {
+  // keep track of the longest peak
+  let longest = 0;
+  // if the length of the arr is 0, or 1, or 2, then there are no peaks
+  if (!arr.length || arr.length === 1 || arr.length === 2) return 0;
+  // create a loop to iterate through, from 1 to arr.length
+  for (let i = 0; i < arr.length; i++) {
+    // if arr[i-1] && arr[i+1] < arr[i]
+    if (arr[i - 1] < arr[i] && arr[i + 1] < arr[i]) {
+      let left = i - 1;
+      let right = i + 1;
+      // while loop to go left
+      while (left && arr[left - 1] < arr[left]) {
+        left--;
+      }
+      while (right && arr[right + 1] < arr[right]) {
+        right++;
+      }
+
+      longest = Math.max(longest, right - left + 1);
     }
-    sumHelper(root.left, L, R);
-    sumHelper(root.right, L, R);
   }
-  sumHelper(root, L, R);
-  return sum;
+  return longest;
 }
