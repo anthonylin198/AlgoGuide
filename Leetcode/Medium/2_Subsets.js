@@ -20,29 +20,18 @@ Output:
   []
 ]
 
-
-
 */
 
 /*
+
+Follow depth first search technique
 []
-[], [1]
-[], [1], [2], [1, 2]
-[], [1], [2], [1, 2],  [3], [1, 3], [2, 3], [1, 2, 3]
-
-
-
-
-
-[1,2,3]
-
-1) [[]]
-2) [[], [1]]
-3) [[], [1], [2], [2,3]]
-
+[]      [1]
+[][1]            [2][1,2]
 
 */
 
+// todo: Simple subset solution
 function subsets(nums) {
   const subsets = [[]];
   for (let i = 0; i < nums.length; i++) {
@@ -55,5 +44,3 @@ function subsets(nums) {
   }
   return subsets;
 }
-
-console.log(subsets([1, 2, 3]));
