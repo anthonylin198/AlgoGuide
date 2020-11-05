@@ -4,6 +4,13 @@ class Node {
     this.left = null;
     this.right = null;
   }
+  print(node = this, arr = []) {
+    if (!node) return;
+    this.print(node.left, arr);
+    arr.push(node.val);
+    this.print(node.right, arr);
+    return arr;
+  }
 }
 
 // traversing through all elements in the tree
@@ -102,6 +109,8 @@ bst.left.right = new Node(7);
 bst.left.left = new Node(2);
 bst.right = new Node(15);
 
-console.log(depthFirstSearch(bst));
+console.log(bst.print());
 
-console.log(ifValExists2(bst, 7));
+// console.log(depthFirstSearch(bst));
+
+// console.log(ifValExists2(bst, 7));
