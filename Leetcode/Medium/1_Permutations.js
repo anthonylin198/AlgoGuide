@@ -26,8 +26,6 @@ todo: THIS IS YOUR STYLE OF SOLUTION TO FOLLOW
 
 */
 
-//
-
 function permute(nums) {
   // create an array htat will start with the first value in nums
   const permutations = [[nums[0]]];

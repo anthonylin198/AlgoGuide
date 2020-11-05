@@ -85,6 +85,6 @@ that you are going to create
 2) Use variable, when you need to check both left and right side. Becuase later searches would overwrite the value.
    - Example if left side is false and right side is true, and you need both sides to be false, false would just be overwridden by true (subtree of another tree)
 3) Be able to find the lowest common ancestor - this is technically in the medium section
-
+4) Understand the difference between keeping a parameter and keep a variable outside to keep track of
 
 */
