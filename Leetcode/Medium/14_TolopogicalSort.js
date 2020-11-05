@@ -18,6 +18,14 @@ deps = [[1,2,], [1,3], [3,2], [4,2], [4,3]]
 
 /*
 
+Topological Sort Solution
+
+
+
+*/
+
+/*
+
 jobs = [1,2,3,4]
 deps = [[1,2,], [1,3], [3,2], [4,2], [4,3]]
 
@@ -35,23 +43,65 @@ SOLVE WITH TOPOLOGICAL SORT
 
 */
 
-// todo: Solution tracing through the jobs and deps - however, we need to kee pcycling through until we are golden
-function topologicalSort(jobs, deps) {
-  // create array to keep track of complete jobs
-  const arr = [];
-  // loop iterating through the job array
-
-  // create helper function that will recursive call
-  for (let i = 0; i < jobs.length; i++) {
-    for (let j = 0; j < deps.length; j++) {
-      if (deps[j][1] === jobs[i]) {
-        // compare first value to see if it exists in the array
-      }
+// todo: Topological
+class JobGraph {
+  constructor(jobs) {
+    this.nodes = [];
+    this.graph == {};
+    for (const job of jobs) {
+      this.addNode(job);
     }
   }
-
-  // if the array.length is not equal to jobs.length, we return []
-  // else we return array
+  addPrereq(job, prereq) {
+    const jobNode = this.getNode(job);
+    const prereqNode = this.getNode(prereq);
+    jobNode.prereqs.push(prereqNode);
+  }
+  addNode(job) {
+    this.graph[job] = new JobNode(job);
+    this.nodes.push(this.graph[job]);
+  }
+  getNode(job) {
+    if (!(job in this.graph)) this.addNode(job);
+    return this.graph[job];
+  }
 }
 
-function check(arr) {}
+class JobNode {
+  constructor(job) {
+    this.job = job;
+    this.prereqs = [];
+    this.visited = false;
+    this.visiting = false;
+  }
+}
+
+function topologicalSort(jobs, deps) {
+  const jobGraph = createJobGraph(jobs, deps);
+  return getOrderedJobs(jobGraph);
+}
+
+function getOrderedJobs(graph) {
+  const orderedJobs = [];
+  const { nodes } = graph;
+  while (nodes.length) {
+    const nodes = nodes.pop();
+    const containsCycle = depthFirstTraverse(node, orderedJobs);
+    if (containsCycle) return [];
+  }
+  return orderedJobs;
+}
+
+function depthFirstTraverse(node, orderedJobs) {
+  if (node.visited) return false;
+  if (node.visiting) return true;
+  node.visiting = true;
+  for (const prereqNode of node.prereqs) {
+    const containsCycle = depthFirstTraverse(prereqNode, orderedJobs);
+    if (containsCycle) return true;
+  }
+  node.visited = true;
+  node.visiting = false;
+  orderedJobs.push(node.job);
+  return false;
+}
