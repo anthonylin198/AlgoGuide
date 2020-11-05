@@ -18,9 +18,8 @@ deps = [[1,2,], [1,3], [3,2], [4,2], [4,3]]
 
 /*
 
-Topological Sort Solution
-
-
+Topological Sort: Toplogical sorting for a DIRECTED ACYCLIC GRAPH is a linear ordering of vertices such that for every directed edge u v, vertex u
+comes before v in the ordering. Toplogical sorting for a graph is not possible if the graph is not a DAF (there would be a cycle)
 
 */
 
@@ -47,7 +46,7 @@ SOLVE WITH TOPOLOGICAL SORT
 class JobGraph {
   constructor(jobs) {
     this.nodes = [];
-    this.graph == {};
+    this.graph = {};
     for (const job of jobs) {
       this.addNode(job);
     }
@@ -76,16 +75,27 @@ class JobNode {
   }
 }
 
+// This is the actualy function
 function topologicalSort(jobs, deps) {
   const jobGraph = createJobGraph(jobs, deps);
   return getOrderedJobs(jobGraph);
 }
 
+function createJobGraph(jobs, deps) {
+  const graph = new JobGraph(jobs);
+  for (const [prereq, job] of deps) {
+    // prereq and job are out
+    graph.addPrereq(job, prereq);
+  }
+  return graph;
+}
+
+// get the jobs in order
 function getOrderedJobs(graph) {
   const orderedJobs = [];
   const { nodes } = graph;
   while (nodes.length) {
-    const nodes = nodes.pop();
+    const node = nodes.pop();
     const containsCycle = depthFirstTraverse(node, orderedJobs);
     if (containsCycle) return [];
   }
@@ -105,3 +115,19 @@ function depthFirstTraverse(node, orderedJobs) {
   orderedJobs.push(node.job);
   return false;
 }
+
+const graph = new JobGraph([1, 2, 3, 4]);
+console.log(graph);
+
+console.log(
+  topologicalSort(
+    [1, 2, 3, 4],
+    [
+      [1, 2],
+      [1, 3],
+      [3, 2],
+      [4, 2],
+      [4, 3],
+    ]
+  )
+);
