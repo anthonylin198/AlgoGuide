@@ -88,7 +88,7 @@ function zigzagLevelOrder(root) {
   return arr;
 }
 
-// todo : Leetcode Solution
+// todo : Leetcode clean Solution
 
 var zigzagLevelOrder = function (root) {
   if (!root) return [];
