@@ -77,24 +77,17 @@ class JobNode {
   }
 }
 
-// This is the actualy function
 function topologicalSort(jobs, deps) {
-  const jobGraph = createJobGraph(jobs, deps);
+  // first create the graph - add in new jobNodes, then add all the prereqs
+  const jobGraph = new JobGraph(jobs, deps);
+  for (const [prereq, job] of deps) {
+    jobGraph.addPrereq(job, prereq);
+  }
+  // return the jobs in order
   return getOrderedJobs(jobGraph);
 }
 
-function createJobGraph(jobs, deps) {
-  const graph = new JobGraph(jobs);
-
-  for (const [prereq, job] of deps) {
-    // prereq and job are out
-    graph.addPrereq(job, prereq);
-  }
-  console.log("this", graph);
-  return graph;
-}
-
-// get the jobs in order
+// function to get the ordered jobs
 function getOrderedJobs(graph) {
   const orderedJobs = [];
   const { nodes } = graph;
@@ -116,12 +109,9 @@ function depthFirstTraverse(node, orderedJobs) {
   }
   node.visited = true;
   node.visiting = false;
-  orderedJobs.push(node.job);
+  orderedJobs.push(node.job); // if reaches this point, mean that all prereqs are hit
   return false;
 }
-
-const graph = new JobGraph([1, 2, 3, 4]);
-console.log(graph);
 
 console.log(
   topologicalSort(

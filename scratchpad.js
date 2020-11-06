@@ -92,7 +92,7 @@ function depthFirstTraverse(node, orderedJobs) {
   }
   node.visited = true;
   node.visiting = false;
-  orderedJobs.push(node.job);
+  orderedJobs.push(node.job); // if reaches this point, mean that all prereqs are hit
   return false;
 }
 
