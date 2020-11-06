@@ -37,7 +37,6 @@ we know we can slap on the 3,
 // todo: solution 1 - pre
 var constructFromPrePost = function (pre, post) {
   let i = 0;
-
   function callDFS(arr) {
     if (!arr.length) return null;
     const node = pre[i++];
