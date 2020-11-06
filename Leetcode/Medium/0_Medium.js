@@ -20,7 +20,24 @@
 
 // todo: Linked Lists
 /*
-1) be able to combine multiple concepts such as addtwo numbers
+1) be able to combine multiple concepts such as addtwo numbers -- Slow down and always remember to iterate every pointer, and check if they exist or not
+
+
+*/
+
+// todo: Binary Search Tree
+/*
+
+                1
+           2           3
+       4      5
+
+1) Know all bst order - preorder, postorder, level-order
+Inorder: 4 2 5 1 4
+Preorder: 1 2 4 5 3
+Postorder: 4 5 2 3 1
+Level Order: 1 2 3 4 5
+
 
 
 */

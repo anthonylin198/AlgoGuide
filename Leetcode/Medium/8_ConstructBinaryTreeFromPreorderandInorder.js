@@ -34,36 +34,40 @@ we know we can slap on the 3,
 
 */
 
-// todo: solution 1
-var buildTree = function (preorder, inorder) {
-  p = i = 0;
-  build = function (stop) {
-    if (inorder[i] != stop) {
-      var root = new TreeNode(preorder[p++]);
-      root.left = build(root.val);
-      i++;
-      root.right = build(stop);
-      return root;
-    }
-    return null;
-  };
-  return build();
+// todo: solution 1 - pre
+var constructFromPrePost = function (pre, post) {
+  let i = 0;
+
+  function callDFS(arr) {
+    if (!arr.length) return null;
+    const node = pre[i++];
+    const idx = arr.indexOf(pre[i]);
+    const tree = new TreeNode(node);
+    tree.left = callDFS(arr.slice(0, idx + 1));
+    tree.right = callDFS(arr.slice(idx + 1, arr.indexOf(node)));
+    return tree;
+  }
+  return callDFS(post);
 };
 
-// todo: solution 2
-var buildTree = function (preorder, inorder) {
-  let hash = {};
-  inorder.forEach((e, i) => {
-    hash[e] = i;
-  });
+// todo: solution 2 - Optimized with hashmap
+var constructFromPrePost = function (pre, post) {
+  const map = {};
+  let i = 0;
 
-  let recur = function (start, end) {
-    if (start > end) return null;
-    let root = new TreeNode(preorder.shift());
-    root.left = recur(start, hash[root.val] - 1);
-    root.right = recur(hash[root.val] + 1, end);
-    return root;
-  };
+  for (let i = 0; i < post.length; i++) {
+    map[post[i]] = i;
+  }
 
-  return recur(0, inorder.length - 1);
+  function callDFS(start, end) {
+    if (start > end || i >= pre.length) return null;
+    const node = pre[i++],
+      idx = map[pre[i]];
+    const tree = new TreeNode(node);
+    if (idx < start || idx > end) return tree;
+    tree.left = callDFS(start, idx);
+    tree.right = callDFS(idx + 1, map[node] - 1);
+    return tree;
+  }
+  return callDFS(0, post.length - 1);
 };
