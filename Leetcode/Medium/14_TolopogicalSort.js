@@ -11,7 +11,9 @@ Write a function that takes in a list of jobs and list of dependencies and retur
 jobs = [1,2,3,4]
 deps = [[1,2,], [1,3], [3,2], [4,2], [4,3]]
 
-[1,4,3,2] or [4,1,3,2]
+
+
+1
 
 
 */
@@ -83,10 +85,12 @@ function topologicalSort(jobs, deps) {
 
 function createJobGraph(jobs, deps) {
   const graph = new JobGraph(jobs);
+
   for (const [prereq, job] of deps) {
     // prereq and job are out
     graph.addPrereq(job, prereq);
   }
+  console.log("this", graph);
   return graph;
 }
 
