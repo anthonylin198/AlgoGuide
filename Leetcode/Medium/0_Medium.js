@@ -14,6 +14,13 @@
 
 // todo: String Problems
 /*
+1) Checking palindrom along the way --- start from beginning and use the left and right pointer. Think edge case when there is a "bb"
+
+*/
+
+// todo: Linked Lists
+/*
+1) be able to combine multiple concepts such as addtwo numbers
 
 
 */
