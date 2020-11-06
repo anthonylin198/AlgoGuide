@@ -56,6 +56,33 @@ transpose the matrix, nested for loop for i=0
 
 */
 
+// todo: Your solution
+function Rotate(matrix) {
+  // create a loop iterating through each row in the matrix i = 0
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = i + 1; j < matrix.length; j++) {
+      const temp = matrix[i][j];
+      matrix[i][j] = matrix[j][i];
+      matrix[j][i] = temp;
+    }
+  }
+  // reverse each array inside the matrix -- using 2 pointer approach
+  // create loop to iterate through each row in the matrix
+  for (let i = 0; i < matrix.length; i++) {
+    let left = 0;
+    let right = matrix.length - 1;
+    while (left < right) {
+      const temp = matrix[i][left];
+      matrix[i][left] = matrix[i][right];
+      matrix[i][right] = temp;
+      left++;
+      right--;
+    }
+  }
+  // return matrix
+  return matrix;
+}
+
 // transpose matrix - nested for loop for i = 0
 function rotate(matrix) {
   // create loop from i = 0 to i < matrix .length
