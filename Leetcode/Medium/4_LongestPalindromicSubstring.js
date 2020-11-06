@@ -90,24 +90,27 @@ function isPalindrome(s) {
 }
 
 // babad
-// todo: leetcode concise
-var longestPalindrome2 = function (s) {
+// todo: moving a long the way, is a good amount faster cuz removes a lot of unecessary checks
+function longestPalindrome(s) {
   var max = "";
-  for (var i = 0; i < s.length; i++) {
-    for (var j = 0; j < 2; j++) {
-      var left = i;
-      var right = i + j;
+  for (let i = 0; i < s.length; i++) {
+    for (let j = 0; j < 2; j++) {
+      // left pointer and right pointer
+      let left = i;
+      let right = i + j;
+      // while left exists and left is equal to right
       while (s[left] && s[left] === s[right]) {
         left--;
         right++;
       }
+      // check if right - left - 1 because right a left are incremented and dec 1 extra time
       if (right - left - 1 > max.length) {
-        max = s.substring(left + 1, right);
+        max = s.slice(left + 1, right);
       }
     }
   }
   return max;
-};
+}
 
 // 2D DP
 var longestPalindrome3 = function (s) {
