@@ -15,6 +15,7 @@
 // todo: String Problems
 /*
 1) Checking palindrom along the way --- start from beginning and use the left and right pointer. Think edge case when there is a "bb"
+2) String problems use an array. Remember you can assign [] and empty spaces    [a, empty, a, empty, a, empty, a, empty]
 
 */
 
@@ -39,7 +40,7 @@ Postorder: 4 5 2 3 1
 Level Order: 1 2 3 4 5
 
 
-2) Understand how to build from scratch --> somewhat similar to the divide and conquer. But do recursively.
+2) Understand how to build from scratch --> somewhat similar to the divide and conquer. But do recursively. Extract information and keep 
 
 
 

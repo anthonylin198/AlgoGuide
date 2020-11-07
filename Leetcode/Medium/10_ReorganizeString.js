@@ -36,6 +36,7 @@ var reorganizeString1 = function (S) {
   for (let c of S) hash[c] = hash[c] + 1 || 1;
 
   let sort = Object.keys(hash).sort((a, b) => hash[b] - hash[a]);
+
   let res = [];
   let index = 0;
 
@@ -43,6 +44,7 @@ var reorganizeString1 = function (S) {
     let occur = hash[sort[i]];
     if (occur > parseInt((S.length + 1) / 2)) return "";
     for (let j = 0; j < occur; j++) {
+      console.log(res);
       if (index >= S.length) index = 1;
       res[index] = sort[i];
       index += 2;
@@ -50,3 +52,53 @@ var reorganizeString1 = function (S) {
   }
   return res.join("");
 };
+
+console.log(reorganizeString1("aabbb"));
+
+function reorganizeString(S) {
+  let maxCharLimit = 0;
+  // get the half p
+  if (S.length % 2 === 0) {
+    maxCharLimit = S.length / 2 + 1;
+  } else if (S.length % 2 === 1) {
+    maxCharLimit = Math.floor(S.length / 2) + 2;
+  }
+
+  const cache = {};
+  for (let i = 0; i < S.length; i++) {
+    if (cache[S[i]]) {
+      cache[S[i]]++;
+    } else {
+      cache[S[i]] = 1;
+    }
+    if (cache[S[i]] === maxCharLimit) {
+      return "";
+    }
+  }
+
+  // create an array with the elements of the cache in a sorted order
+  const sorted = Object.keys(cache).sort((a, b) => cache[b] - cache[a]);
+  // create array that will store
+  for (let i = 0; i < sorted.length; i++) {
+    let current = cache[sorted[i]];
+    for (let j = 0; j < current; j++) {}
+  }
+  // iterate through the sorted array
+
+  // create arr to store the string
+  const arr = [];
+  let index = 0;
+  // create a loop
+  for (let i = 0; i < sorted.length; i++) {
+    const current = cache[sorted[i]];
+    // create a loop
+    for (let j = 0; j < current; j++) {
+      // if index is > S.length - 1, index = 1
+      if (index > S.length - 1) index = 1;
+      // insert at arr[index] = sorted[i]
+      arr[index] = sorted[i];
+      index += 2;
+    }
+  }
+  return arr.join("");
+}
