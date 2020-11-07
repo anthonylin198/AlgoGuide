@@ -32,41 +32,61 @@ right: [15, 20, 7]
 we know we can slap on the 3, 
 
 
+preorder = [3,9,20,15,7]   Root, left, then right
+inorder  = [9,3,15,20,7]
+
+We know that preorder starts with the initial node, inorder goes all the way down
+
+
+
+            3
+
+      [9]          [15,20,7]       - we will have root.left will be a recursivecall
+
+                    3
+              9           20
+           4    9      15     7
+        1
+               
+              
+                    3
+                
+        
+        
+preorder = [3,9,4,1,9,20,15,7]
+inorder = [1,4,9,9,3,15,20,7]    
+
+val = 3
+
+left: [1,4,9,9]             
+
+
+We get the next value from preorder, find the index in the inorder. Eventually, we will get to the 1, and we need to return
+
 */
 
-// todo: solution 1 - pre
-var constructFromPrePost = function (pre, post) {
-  let i = 0;
-  function callDFS(arr) {
-    if (!arr.length) return null;
-    const node = pre[i++];
-    const idx = arr.indexOf(pre[i]);
-    const tree = new TreeNode(node);
-    tree.left = callDFS(arr.slice(0, idx + 1));
-    tree.right = callDFS(arr.slice(idx + 1, arr.indexOf(node)));
+function buildTree(preorder, inorder) {
+  function helper(start, end) {
+    if (start > end) return null;
+    const val = preorder.shift();
+    const tree = new TreeNode(val);
+    tree.left = helper(start, inorder.indexOf(val) - 1);
+    tree.right = helper(inorder.indexOf(val) + 1, end);
     return tree;
   }
-  return callDFS(post);
-};
+  return helper(0, inorder.length - 1);
+}
 
-// todo: solution 2 - Optimized with hashmap
-var constructFromPrePost = function (pre, post) {
-  const map = {};
-  let i = 0;
-
-  for (let i = 0; i < post.length; i++) {
-    map[post[i]] = i;
+function buildTree(preorder, inorder) {
+  // the first value in the tree will be the preorder
+  function helper(start, end) {
+    if (start > end) return null; // we want to place null in the space
+    let val = preorder.shift();
+    let root = new TreeNode(val);
+    root.left = helper(start, inorder.indexOf(val) - 1);
+    root.right = helper(inorder.indexOf(val) + 1, end);
+    return root;
   }
 
-  function callDFS(start, end) {
-    if (start > end || i >= pre.length) return null;
-    const node = pre[i++],
-      idx = map[pre[i]];
-    const tree = new TreeNode(node);
-    if (idx < start || idx > end) return tree;
-    tree.left = callDFS(start, idx);
-    tree.right = callDFS(idx + 1, map[node] - 1);
-    return tree;
-  }
-  return callDFS(0, post.length - 1);
-};
+  return helper(0, inorder.length - 1);
+}
