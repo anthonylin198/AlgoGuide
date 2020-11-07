@@ -39,6 +39,9 @@ Postorder: 4 5 2 3 1
 Level Order: 1 2 3 4 5
 
 
+2) Understand how to build from scratch --> somewhat similar to the divide and conquer. But do recursively.
+
+
 
 */
 

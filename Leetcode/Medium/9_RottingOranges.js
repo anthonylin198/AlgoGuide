@@ -66,39 +66,72 @@ Get the original rotten oranges, and start bfs from them
 
 
 */
-var orangesRotting2 = function (grid) {
-  let queue = [];
-  let minutes = 0;
-  let fresh = 0;
-  for (let i = 0; i < grid.length; i++) {
-    for (let j = 0; j < grid[0].length; j++) {
-      if (grid[i][j] == 1) fresh++;
-      if (grid[i][j] == 2) queue.push([i, j]);
+
+// todo: Better solution keeping track of current and prev
+function orangesRotting(grid) {
+  let counter = 0;
+  let current = findFresh(grid);
+  let prev = null;
+  const cache = {};
+  while (current) {
+    if (current === prev) {
+      return -1;
     }
-  }
-
-  while (queue.length != 0 && fresh) {
-    let dR = [0, -1, 0, 1];
-    let dC = [-1, 0, 1, 0];
-
-    let next = [];
-    while (queue.length != 0) {
-      let current = queue.shift();
-      for (let i = 0; i < dR.length; i++) {
-        let nR = current[0] + dR[i];
-        let nC = current[1] + dC[i];
-        if (nR >= 0 && nC >= 0 && nR < grid.length && nC < grid[0].length) {
-          if (grid[nR][nC] == 1) {
-            grid[nR][nC] = 2;
-            fresh--;
-            next.push([nR, nC]);
-          }
-        }
+    counter++;
+    const rotten = findRotting(grid, cache); // [[0,0],[0,1][1,0]]
+    // iterate through the rotten array
+    for (let i = 0; i < rotten.length; i++) {
+      let current = rotten[i];
+      if (current[0] && grid[current[0] - 1][current[1]] === 1) {
+        grid[current[0] - 1][current[1]] = 2;
+      }
+      if (current[1] && grid[current[0]][current[1] - 1] === 1) {
+        grid[current[0]][current[1] - 1] = 2;
+      }
+      if (
+        current[0] < grid.length - 1 &&
+        grid[current[0] + 1][current[1]] === 1
+      ) {
+        grid[current[0] + 1][current[1]] = 2;
+      }
+      if (
+        current[1] < grid[0].length - 1 &&
+        grid[current[0]][current[1] + 1] === 1
+      ) {
+        grid[current[0]][current[1] + 1] = 2;
       }
     }
-    minutes++;
-    queue = next;
+    prev = current;
+    current = findFresh(grid);
   }
 
-  return fresh == 0 ? minutes : -1;
-};
+  // return the grid
+  return counter;
+}
+
+// create a helper function to find the current indices for the rotting
+function findRotting(grid, cache) {
+  const arr = [];
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[0].length; j++) {
+      if (grid[i][j] === 2 && !cache["" + i + j]) {
+        cache["" + i + j] = true;
+        arr.push([i, j]);
+      }
+    }
+  }
+  return arr;
+}
+
+// create helper function to find how many1s exist
+function findFresh(grid) {
+  counter = 0;
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[0].length; j++) {
+      if (grid[i][j] === 1) {
+        counter++;
+      }
+    }
+  }
+  return counter;
+}

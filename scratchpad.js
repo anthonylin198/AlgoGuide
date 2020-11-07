@@ -1,74 +1,122 @@
 /*
 
-You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contain a single digit. 
+In a given grid, each cell can have one of three values:
 
-Add the two numbers and return it as a linked list.
+the value 0 representing an empty cell;
+the value 1 representing a fresh orange;
+the value 2 representing a rotten orange.
+Every minute, any fresh orange that is adjacent (4-directionally) to a rotten orange becomes rotten.
 
-You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+Return the minimum number of minutes that must elapse until no cell has a fresh orange.  If this is impossible, return -1 instead.
 
-
-Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
-Output: 7 -> 8 -> 0 -> 7
 
 
 */
 
 /*
 
-7 -> 2 -> 4 -> 3     5 -> 6 -> 4
+[2,0]
+[0,1]    the one cannot be touched, so will stay fresh
 
 
+Input: [[2,1,1],[1,1,0],[0,1,1]]
+Output: 4
+
+Starting:
+[2,1,1]
+[1,1,0]
+[0,1,1]
+
+Step 1:
+[2,2,1]
+[2,1,0]
+[0,1,1]
+
+Step 2:
+[2,2,2]
+[2,2,0]
+[0,1,1]
+
+Step 3:
+[2,2,2]
+[2,2,0]
+[0,2,1]
+
+Step 3:
+[2,2,2]
+[2,2,0]
+[0,2,2]
 
 
-9 -> 9 -> 4 -> 7          5 -> 3
-1 -> 0 -> 0 -> 0 -> 0
-
-
-
-1) Reverse both linkedlists to get access to the first number
-7 -> 4 -> 9 -> 9          3 -> 5
-
-
-2) Add in each digit one at a time to a new linkedlist value at p1 + p2 + carry
-
-3) Add ones digit of that number to the linked list
+Replace each 1 with a 2 on each iteration. Keep track of the 1s on each iteration, and if 1 is equal to the previous, then we would return -1
 
 */
-function addTwoNumbers(l1, l2) {
-  // reverse the linked lists
-  let p1 = reverse(l1); // 7 -> 4 -> 9 -> 9
-  let p2 = reverse(l2); // 3 -> 5
-  // create new linked list
-  let sum = new ListNode(null);
-  let p = sum;
-  let carry = 0;
-  // while reversedL1 || reversedL2 || carry exists
-  while (p1 || p2 || carry) {
-    // save l1val  if it does not exist then 0
-    const num1 = p1 ? p1.val : 0;
-    const num2 = p2 ? p2.val : 0;
-    const currentSum = num1 + num2 + carry;
-    carry = currentSum >= 10 ? 1 : 0;
-    // add the 1s digit to the sum ll
-    p.next = new ListNode(currentSum % 10);
-    p = p.next;
-    if (p1) p1 = p1.next;
-    if (p2) p2 = p2.next;
+
+function orangesRotting(grid) {
+  // create a counter variable, will increase on each iteration of the while loop
+  let counter = 0;
+  // create a variable to store the number of 1s that exist in the grid, also keep current count for 1s
+  let current = findFresh(grid);
+  let prev = null;
+  // while any 1s exist in the grid && not equal to the previous;
+  // keep a cache of the 2s that have been expanded
+  const cache = {};
+  while (current && current !== prev) {
+    counter++;
+    const rotten = findRotting(grid, cache); // [[0,0],[0,1][1,0]]
+    // iterate through the rotten array
+    for (let i = 0; i < rotten.length; i++) {
+      let current = rotten[i];
+      if (current[0] && grid[current[0] - 1][current[1]] === 1) {
+        grid[current[0] - 1][current[1]] = 2;
+      }
+      if (current[1] && grid[current[0]][current[1] - 1] === 1) {
+        grid[current[0]][current[1] - 1] = 2;
+      }
+      if (
+        current[0] < grid.length - 1 &&
+        grid[current[0] + 1][current[1]] === 1
+      ) {
+        grid[current[0] + 1][current[1]] = 2;
+      }
+      if (
+        current[1] < grid[0].length - 1 &&
+        grid[current[0]][current[1] + 1] === 1
+      ) {
+        grid[current[0]][current[1] + 1] = 2;
+      }
+    }
+    prev = current;
+    current = findFresh(grid);
   }
-  // return sum
-  sum = reverse(sum.next);
-  return sum;
+
+  // return the grid
+  return counter;
 }
 
-function reverse(ll) {
-  // create a pointer
-  let p = ll;
-  let prevNode = null;
-  while (p) {
-    const next = p.next;
-    p.next = prevNode;
-    prevNode = p;
-    p = next; // eventually p will be null and exit
+// create a helper function to find the current indices for the rotting
+function findRotting(grid, cache) {
+  const arr = [];
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid.length; j++) {
+      if (grid[i][j] === 2 && !cache["" + i + j]) {
+        cache["" + i + j] = true;
+        arr.push([i][j]);
+      }
+    }
   }
-  return prevNode;
+  return arr;
+}
+
+// create helper function to find how many1s exist
+function findFresh(grid) {
+  counter = 0;
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[0].length; j++) {
+      if (grid[i][j] === 1) {
+        counter++;
+      }
+    }
+  }
+  return counter;
 }
