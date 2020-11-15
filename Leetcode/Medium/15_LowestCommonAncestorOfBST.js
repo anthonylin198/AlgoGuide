@@ -16,12 +16,8 @@ function lowestCommonAncestor(root, p, q) {
     let pcheck = false;
     let qcheck = false;
     for (let i = 0; i < arr.length; i++) {
-      if (arr[i] === p) {
-        pcheck = true;
-      }
-      if (arr[i] === q) {
-        qcheck = true;
-      }
+      if (arr[i] === p) pcheck = true;
+      if (arr[i] === q) qcheck = true;
     }
     if (pcheck && qcheck) {
       closest = arr[0];
