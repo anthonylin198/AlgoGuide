@@ -48,46 +48,6 @@ switch = left
         [[1], [3,2] , [4,5], [7,6]
   */
 
-//todo: Doesn't really work
-function zigzagLevelOrder(root) {
-  // create a queue that will keep track of push nodes
-  const arr = [];
-  const queue = [root];
-  // create a switch that will keep track of left and right
-  let switcher = true; // true means right
-  // helper function
-  while (queue.length) {
-    // keep track of the current queue.length
-    let currentLength = queue.length;
-    const currentArr = [];
-    for (let i = 0; i < currentLength; i++) {
-      const current = queue.shift();
-      currentArr.push(current);
-      if (switcher === true) {
-        if (current.right) {
-          queue.push(current.right);
-        }
-        if (current.left) {
-          queue.push(current.left);
-        }
-        switcher = false;
-      } else if (switcher === false) {
-        if (current.left) {
-          queue.push(current.left);
-        }
-        if (current.right) {
-          queue.push(current.right);
-        }
-        switcher = true;
-      }
-      currentArr.push(current);
-    }
-    arr.push(currentArr);
-  }
-  console.log(arr);
-  return arr;
-}
-
 // todo : Leetcode clean Solution
 
 var zigzagLevelOrder = function (root) {
