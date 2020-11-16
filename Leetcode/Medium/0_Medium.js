@@ -75,5 +75,6 @@ Level Order: 1 2 3 4 5
 // todo: Binary Search
 /*
 1) Remember we need to keep dividing in half, the conditional is while start<=end
+2) For a rotated array, if you split in half, we know both the sides are still sorted
 
 */
