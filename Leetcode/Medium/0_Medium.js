@@ -59,6 +59,7 @@ Level Order: 1 2 3 4 5
 // todo: Regex: calculator
 /*
 1) /\d/.test("c")      tests  if c is a digit CAPITAL D WOULD TEST IF IT IS A NONDIGIT
+2) Change a string to a Number --- Number(c)
 
 */
 
@@ -69,5 +70,10 @@ Level Order: 1 2 3 4 5
 2) Every graph node has the value, along with list of adjacent nodes
 3) Understand depth first search and breadth first search
 
+*/
+
+// todo: Binary Search
+/*
+1) Remember we need to keep dividing in half, the conditional is while start<=end
 
 */
