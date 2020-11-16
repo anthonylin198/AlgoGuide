@@ -24,31 +24,37 @@ If the sign is a multiplication or division, we need to loop through until we hi
 
 */
 
-// Input: " 1+2+3*4*5*6/7+9+10"
+// Input: " 12+2+3*4*5*6/7+9+10"
+
+// [1,2,60,9,10,-20]
 
 // ! Just replace the spaces
-var calculate = function (s) {
-  s.replace(/\s/g, "");
-  let num = "";
-  let calc = [];
-  let prevSign = "+";
+function calculate(s) {
+  if (s == null || s.length === 0) return null;
+
+  // remove space
+  s = s.replace(/\s/g, "");
+
+  let st = [];
+  let n = 0;
+  let sign = "+";
+
   for (let i = 0; i < s.length; i++) {
-    if (!isNaN(s[i])) {
-      num += s[i];
-    }
-    if (isNaN(s[i]) || i == s.length - 1) {
-      if (prevSign == "+") {
-        calc.push(Number(num));
-      } else if (prevSign == "-") {
-        calc.push(Number(-num));
-      } else if (prevSign == "*") {
-        calc.push(Math.floor(calc.pop() * num));
-      } else {
-        calc.push(Math.trunc(calc.pop() / num));
-      }
-      prevSign = s[i];
-      num = "";
+    const c = s[i];
+    // number - get an integer -- getting the next number
+    if (/\d/.test(c)) n = n * 10 + Number(c); // e.g. '14' -> 1 * 10 + 4
+    // sign or last number
+    if (/\D/.test(c) || i === s.length - 1) {
+      if (sign === "-") st.push(-n);
+      else if (sign === "+") st.push(n);
+      else if (sign === "*") st.push(st.pop() * n);
+      else if (sign === "/") st.push(~~(st.pop() / n));
+
+      sign = c;
+      n = 0;
     }
   }
-  return calc.reduce((a, b) => a + b);
-};
+  return st.reduce((a, b) => a + b);
+}
+
+console.log(calculate("12+2+3+4*5"));

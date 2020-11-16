@@ -56,6 +56,12 @@ Level Order: 1 2 3 4 5
 
 */
 
+// todo: Regex: calculator
+/*
+1) /\d/.test("c")      tests  if c is a digit CAPITAL D WOULD TEST IF IT IS A NONDIGIT
+
+*/
+
 // todo: Graphs (store v vertices/nodes, and e edges) O(V+E) space and O(V+E) time
 /*
 
