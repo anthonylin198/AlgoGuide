@@ -46,6 +46,16 @@ Level Order: 1 2 3 4 5
 
 */
 
+// todo: Word Search Question
+/*
+1) Make sure to check the conditionals, make recursive calls
+2) change positions to null rather than trying to keep a cache
+3) instead of ij, start changing that to row column
+
+
+
+*/
+
 // todo: Graphs (store v vertices/nodes, and e edges) O(V+E) space and O(V+E) time
 /*
 
