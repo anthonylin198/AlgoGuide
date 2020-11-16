@@ -16,5 +16,4 @@ If target is found in the array return its index, otherwise, return -1.
 If divided in half, we know that one side of the array is sorted
 
 
-
 */
