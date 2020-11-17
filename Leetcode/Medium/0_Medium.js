@@ -22,6 +22,7 @@
 // todo: Linked Lists
 /*
 1) be able to combine multiple concepts such as addtwo numbers -- Slow down and always remember to iterate every pointer, and check if they exist or not
+2) When in doubt, create references to keep track of later -- create the new ll
 
 
 */
@@ -76,5 +77,14 @@ Level Order: 1 2 3 4 5
 /*
 1) Remember we need to keep dividing in half, the conditional is while start<=end
 2) For a rotated array, if you split in half, we know both the sides are still sorted
+
+*/
+
+// todo: Class Style Questions
+/*
+
+1) Insert Delete Get Random
+
+
 
 */
