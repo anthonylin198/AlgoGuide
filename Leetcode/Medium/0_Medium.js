@@ -14,8 +14,9 @@
 
 // todo: String Problems
 /*
-1) Checking palindrom along the way --- start from beginning and use the left and right pointer. Think edge case when there is a "bb"
+1) Checking palindrome along the way --- start from beginning and use the left and right pointer. Think edge case when there is a "bb"
 2) String problems use an array. Remember you can assign [] and empty spaces    [a, empty, a, empty, a, empty, a, empty]
+3) When you slice, 0,0 will not include anything
 
 */
 
@@ -84,6 +85,10 @@ Level Order: 1 2 3 4 5
 /*
 
 1) Insert Delete Get Random
+
+
+
+
 
 
 

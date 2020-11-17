@@ -78,7 +78,7 @@ function ladderLength(beginWord, endWord, wordList) {
   let step = 1;
   let q = [beginWord];
   while (q.length) {
-    const next = [];
+    const next = []; // we must create next, or step++ will iterate too many times
     for (let w of q) {
       if (w === endWord) return step;
       // iterate through the word
