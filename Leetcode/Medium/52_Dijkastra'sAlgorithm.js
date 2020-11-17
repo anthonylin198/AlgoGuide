@@ -60,7 +60,8 @@ function dijkstrasAlgorithm(start, edges) {
   }
   return minDistances.map((x) => (x === Infinity ? -1 : x));
 }
-// helper function to get the vertex with min distance - iterates throuhg the min distance array
+
+// helper function to get the vertex with min distance - iterates through the min distance array
 function getVertexWithMinDistance(distances, visited) {
   let currentMinDistance = Infinity;
   let vertex = -1;
