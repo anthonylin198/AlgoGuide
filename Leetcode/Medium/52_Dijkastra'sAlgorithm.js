@@ -28,6 +28,7 @@ function dijkstrasAlgorithm(start, edges) {
   // creating a set to check visited
   const visited = new Set();
   while (visited.size !== numberOfVertices) {
+    // destructures out vertex and currentMinDistance
     const [vertex, currentMinDistance] = getVertexWithMinDistance(
       minDistances,
       visisted
