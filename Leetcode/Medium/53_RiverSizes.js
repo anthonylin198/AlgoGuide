@@ -49,7 +49,6 @@ function riverTraverse(matrix, r, c) {
       return;
     }
     // If pass all the conditionals change the 1 to 0
-    console.log("here", currentRiverSize);
     matrix[r][c] = 0;
     currentRiverSize++;
     // recursive calls
