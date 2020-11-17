@@ -4,6 +4,8 @@ Given a 2-dimensional array of potentially unequal height and width containing 0
 land, 1 is river. Write a function that gets ll the river sizes
 
 
+ALGOEXPERT
+
 */
 
 /*
