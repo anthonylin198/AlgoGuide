@@ -59,7 +59,7 @@ function getVertexWithMinDistance(distances, visited) {
   let currentMinDistance = Infinity;
   let vertex = -1;
   // create loop
-  for (const [vertexIdx, distance] of distance.entries()) {
+  for (const [vertexIdx, distance] of distances.entries()) {
     if (visited.has(vertexIdx)) {
       constinue;
     }
