@@ -15,13 +15,19 @@ edge = [
 array with the distance to vertex 0, 1, 2, 3, 4, 5     -1 is returned when not possible to reach
 [0, 7, 13, 27, 10, -1]
 
+
+
+1) Get the length of all the edges
+2) Push the midistances into an array
+3) 
+
 */
 
 function dijkstrasAlgorithm(start, edges) {
-  const numberofVertices = edges.length;
+  const numberOfVertices = edges.length;
   // setting mindistances all to infinity, except for the starting
   const minDistances = [];
-  for (let i = 0; i < numberofVertices; i++) {
+  for (let i = 0; i < numberOfVertices; i++) {
     minDistances.push(Infinity);
   }
   minDistances[start] = 0;
@@ -31,7 +37,7 @@ function dijkstrasAlgorithm(start, edges) {
     // destructures out vertex and currentMinDistance
     const [vertex, currentMinDistance] = getVertexWithMinDistance(
       minDistances,
-      visisted
+      visited
     );
     // we reached the end
     if (currentMinDistance === Infinity) {
@@ -54,14 +60,14 @@ function dijkstrasAlgorithm(start, edges) {
   }
   return minDistances.map((x) => (x === Infinity ? -1 : x));
 }
-// helper function to get the vertex with min distance
+// helper function to get the vertex with min distance - iterates throuhg the min distance array
 function getVertexWithMinDistance(distances, visited) {
   let currentMinDistance = Infinity;
   let vertex = -1;
   // create loop
   for (const [vertexIdx, distance] of distances.entries()) {
     if (visited.has(vertexIdx)) {
-      constinue;
+      continue;
     }
     if (distance <= currentMinDistance) {
       vertex = vertexIdx;
