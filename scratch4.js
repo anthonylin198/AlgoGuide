@@ -56,14 +56,12 @@ function searchRotated(nums, target) {
 function search(nums, target) {
   let start = 0;
   let end = nums.length - 1;
-
   // while loop iterating through
   while (left <= right) {
     let mid = Math.floor((start + end) / 2);
     if (nums[mid] === target) {
       return mid;
     }
-
     // check if the left side is sorted
     if (nums[left] <= nums[mid]) {
       if (nums[left] <= target && target <= nums[mid]) {
