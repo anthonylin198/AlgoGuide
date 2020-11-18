@@ -1,77 +1,88 @@
 /*
 
-Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
+You are given an integer array nums sorted in ascending order, and an integer target.
 
-According to the definition of LCA on Wikipedia: 
+Suppose that nums is rotated at some pivot unknown to you beforehand (i.e., [0,1,2,4,5,6,7]
+   might become [4,5,0,1,2]).
 
-“The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
+   We are looking for 4
 
-
-*/
-
-/*
-
-Solution: Go through the bst, perform depth first search, and see if we can see both nodes. We must return the deepest level where both the nodes we are looking for exists
-Can be a node of itself
-
-                         1
-                      2      3
-                  4     5      6
-                7  8
-
-                7 & 5
-
-Solution: At each node, perform DFS and see if we can have bot the nodes. We would then want to return the deepest node that does have both. Keeping track of the level
+If target is found in the array return its index, otherwise, return -1.
 
 
-                         1
-                     2      3
-                  4     5      6
-                7  8
+[1,2,3,4,5,6,7]
+[2,3,4,5,6,7,1]
+[3,4,5,6,7,1,2] check if is in order
+[4,5,6,7,1,2,3]
+[5,6,7,1,2,3,4]
+[6,7,1,2,3,4,5]
+[7,1,2,3,4,5,6]
 
-              7 & 5
+Using a variation of binary search: Cut the array in half - we ar looking for 2
 
-
-Perform DFS, after we both the target nodes are hit
-
-
-1 -> 2 -> 4 -> 7 (returned) 
-
-
-
-
+[1,2,3,4,5,6,7] -- we divide in half, check if is in order, 
 
 */
 
-class TreeNode {
-  constructor(val) {
-    this.val = val;
-    this.right = null;
-    this.left - null;
+function searchRotated(nums, target) {
+  let left = 0;
+  let right = nums.length - 1;
+  while (left <= right) {
+    // get the cneter
+    const mid = (left + right) / 2;
+    if (nums[mid] === target) {
+      return mid;
+    }
+    // check if left side is sorted
+    if (nums[left] <= nums[mid]) {
+      if (nums[left] <= target && target <= nums[mid]) {
+        right = mid - 1;
+      } else {
+        left = mid + 1;
+      }
+    } else {
+      // right side is sored
+      if (nums[mid] <= target && target <= nums[right]) {
+        // target is in the right
+        left = mid + 1;
+      } else {
+        // target is in the left
+        right = mid - 1;
+      }
+    }
   }
 }
 
-const lowestCommonAncestor = (root, p, q) => {
-  if (!root || root === p || root === q) {
-    return root;
+function search(nums, target) {
+  let start = 0;
+  let end = nums.length - 1;
+
+  // while loop iterating through
+  while (left <= right) {
+    let mid = Math.floor((start + end) / 2);
+    if (nums[mid] === target) {
+      return mid;
+    }
+
+    // check if the left side is sorted
+    if (nums[left] <= nums[mid]) {
+      if (nums[left] <= target && target <= nums[mid]) {
+        // target in the left
+        right = mid - 1;
+      } else {
+        // target in the right
+        left = mid + 1;
+      }
+    }
+    // right side is sorted
+    else {
+      if (nums[mid] <= target && target <= nums[right]) {
+        // target is in the right
+        left = mid + 1;
+      } else {
+        // target is in the left
+        right = mid - 1;
+      }
+    }
   }
-  const left = lowestCommonAncestor(root.left, p, q); // 7
-  console.log("this is left", left);
-  const right = lowestCommonAncestor(root.right, p, q);
-  console.log("this is right", right);
-  if (!left) return right; // p and q are in the right subtree
-  if (!right) return left; // p and q are in the left subtree
-  return root; // p is in one side and q is in the other
-};
-
-const bst = new TreeNode(1);
-bst.left = new TreeNode(2);
-bst.right = new TreeNode(3);
-bst.left.left = new TreeNode(4);
-bst.left.right = new TreeNode(5);
-bst.right = new TreeNode(3);
-bst.right.right = new TreeNode(6);
-bst.left.left.left = new TreeNode(7);
-bst.left.left.right = new TreeNode(8);
-
-console.log(lowestCommonAncestor(bst, bst.left.right, bst.left.left.left));
+}

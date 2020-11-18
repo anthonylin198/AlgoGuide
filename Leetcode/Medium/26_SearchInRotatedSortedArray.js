@@ -31,8 +31,6 @@ Look for 1:
 If center - 1 is >= then middle number, then we might need to flop sides
 
 
-
-
 */
 
 function search(nums, target) {
