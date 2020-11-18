@@ -1,72 +1,105 @@
 /*
 
-Given a 2-dimensional array of potentially unequal height and width containing 0 and 1s, each 0 represents
-land, 1 is river. Write a function that gets ll the river sizes
+Given a binary tree, return the zigzag level order traversal of its nodes' values. (ie, from left to right, then right to left for the next level and alternate between).
 
+For example:
+Given binary tree [3,9,20,null,null,15,7],
+
+[
+[3],
+[20,9],
+[15,7]
+
+]
+
+         1
+       2   3
+     4  5 6  7  
+            8  9
+                10
+
+  [1,3,2,4,5,6,7,9,8,10]
+
+  [2,3]
+
+  q:  [1]                 shift
+      [2, 3]              pop and push
+      [4, 5, 6, 7]       shift and push
+      [8, 9]              pop and push  
+      10                  shift and push
+
+  [1,3,2,4,5,6,7,8,7,10]
+
+
+          1
+        2   3
+      4       5   [1,3,2,4,5]
+
+      q: [1]  shift    odd
+        [2,3] pop      even
+        [5,4] pop      odd
+
+
+       q:  [1, 2, 3, 4, 5]
+            unshift   push
+        [[1], [3,2], [4,5]  ]
+
+
+        
 
 */
 
 /*
 
-
-Create a loop that iterates through the rows and columns
-
-If we find a 1, we need to hit an explore helper function, that will
-continue to search and iterate the size of the river, and end up 
-pushing tht to an array
+1
 
 
 */
+function zigzagLevelOrder(root) {
+  if (!root) return [];
+  let isOdd = true;
+  const results = [];
+  const q = [root];
 
-function riverSizes(matrix) {
-  // create arr to store all the sizes
-  const arr = [];
-  for (let r = 0; r < matrix.length; r++) {
-    for (let c = 0; c < matrix[0].length; c++) {
-      // if we see a 1, we call the rivertraverse
-      if (matrix[r][c] === 1) {
-        arr.push(riverTraverse(matrix, r, c));
-      }
+  while (q.length) {
+    const level = [];
+    const currentLength = q.length;
+    for (let i = 0; i < currentLength; i++) {
+      const currentNode = q.shift();
+      if (isOdd) level.push(currentNode.val);
+      else level.unshift(currentNode.val);
+      // push on the children
+      if (currentNode.left) q.push(currentNode.left);
+      if (currentNode.right) q.push(currentNode.right);
     }
+    if (isOdd) isOdd = false;
+    else isOdd = true;
+    results.push(level);
   }
-  return arr;
+  return results;
 }
 
-// create helper function that will return length of river
-function riverTraverse(matrix, r, c) {
-  let currentRiverSize = 0;
-  // conditional to check we are in valid grid, and if there is a 0
-  function traverseHelper(matrix, r, c) {
-    if (
-      r < 0 ||
-      c < 0 ||
-      r > matrix.length - 1 ||
-      c > matrix[0].length - 1 ||
-      matrix[r][c] !== 1
-    ) {
-      return;
+// this does not catch all the edge cases
+var zigzagLevelOrder = function (root) {
+  if (!root) return [];
+  let queue = [root];
+  let output = [];
+  let deep = 0;
+  while (queue.length > 0) {
+    const size = queue.length;
+    const level = [];
+
+    for (let i = 0; i < size; i++) {
+      const node = queue.shift();
+      if (deep % 2 == 0) level.push(node.val);
+      else level.unshift(node.val);
+
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
     }
-    // If pass all the conditionals change the 1 to 0
-    console.log("here", currentRiverSize);
-    matrix[r][c] = 0;
-    currentRiverSize++;
-    // recursive calls
-    // traverse top
-    traverseHelper(matrix, r - 1, c);
-    traverseHelper(matrix, r + 1, c);
-    traverseHelper(matrix, r, c - 1);
-    traverseHelper(matrix, r, c + 1);
+    output.push(level);
+    deep++;
   }
-  traverseHelper(matrix, r, c);
-  return currentRiverSize;
-}
 
-const matrix = [
-  [1, 0, 0, 1, 0],
-  [1, 0, 1, 0, 0],
-  [0, 0, 1, 0, 1],
-  [1, 0, 1, 0, 1],
-  [1, 0, 1, 1, 0],
-];
-
-console.log(riverSizes(matrix));
+  return output;
+};

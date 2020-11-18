@@ -18,8 +18,9 @@ array with the distance to vertex 0, 1, 2, 3, 4, 5     -1 is returned when not p
 
 
 1) Get the length of all the edges
-2) Push the midistances into an array
-3) 
+2) push infinity into minDistances array to compare, then set the start to 0
+3) Create a set to keep track of visited nodes
+4) 
 
 */
 

@@ -53,22 +53,16 @@ het
 
 wordList = [ "hdg", "hdt", "hog", "cog", "hot"]
 
-
-
 1) change wordlist into an object for direct access, can just use set and has
 2) keep track of the number of steps outside of while
 3) Keep a queue that will be the words that we want to keep trying
 4) Try every possible character that could lead to our solution, if it exists in the wordlist, push to queue and remove
-
-
-
 
 dict = {cit, hot, dot, dog, lot, log, cog, }
 step = 1
 q = [hit]
 
 next = [];
-
 
 */
 
@@ -100,6 +94,17 @@ function ladderLength(beginWord, endWord, wordList) {
 
   return 0;
 }
+
+/*
+
+beginWord = "hit"
+endWord = "cog"
+
+Solution: wordList = [ "hdg", "hdt", "hog", "cog", "hot"]
+
+go through the wordlist, and look for any word that has a one character change. If there is a one letter change, then we can push
+
+*/
 
 const beginWord = "hit";
 const endWord = "cog";
