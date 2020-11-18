@@ -1,86 +1,66 @@
 /*
 
-You are given an integer array nums sorted in ascending order, and an integer target.
 
-Suppose that nums is rotated at some pivot unknown to you beforehand (i.e., [0,1,2,4,5,6,7]
-   might become [4,5,0,1,2]).
+Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
 
-   We are looking for 4
+Strings consists of lowercase English letters only and the length of both strings s and p 
+will not be larger than 20,100.
 
-If target is found in the array return its index, otherwise, return -1.
+The order of output does not matter.
 
-
-[1,2,3,4,5,6,7]
-[2,3,4,5,6,7,1]
-[3,4,5,6,7,1,2] check if is in order
-[4,5,6,7,1,2,3]
-[5,6,7,1,2,3,4]
-[6,7,1,2,3,4,5]
-[7,1,2,3,4,5,6]
-
-Using a variation of binary search: Cut the array in half - we ar looking for 2
-
-[1,2,3,4,5,6,7] -- we divide in half, check if is in order, 
 
 */
 
-function searchRotated(nums, target) {
-  let left = 0;
-  let right = nums.length - 1;
-  while (left <= right) {
-    // get the cneter
-    const mid = (left + right) / 2;
-    if (nums[mid] === target) {
-      return mid;
-    }
-    // check if left side is sorted
-    if (nums[left] <= nums[mid]) {
-      if (nums[left] <= target && target <= nums[mid]) {
-        right = mid - 1;
-      } else {
-        left = mid + 1;
-      }
-    } else {
-      // right side is sored
-      if (nums[mid] <= target && target <= nums[right]) {
-        // target is in the right
-        left = mid + 1;
-      } else {
-        // target is in the left
-        right = mid - 1;
-      }
-    }
-  }
-}
+/*
 
-function search(nums, target) {
-  let start = 0;
-  let end = nums.length - 1;
-  // while loop iterating through
-  while (left <= right) {
-    let mid = Math.floor((start + end) / 2);
-    if (nums[mid] === target) {
-      return mid;
-    }
-    // check if the left side is sorted
-    if (nums[left] <= nums[mid]) {
-      if (nums[left] <= target && target <= nums[mid]) {
-        // target in the left
-        right = mid - 1;
-      } else {
-        // target in the right
-        left = mid + 1;
-      }
-    }
-    // right side is sorted
-    else {
-      if (nums[mid] <= target && target <= nums[right]) {
-        // target is in the right
-        left = mid + 1;
-      } else {
-        // target is in the left
-        right = mid - 1;
-      }
+s: "asd"
+
+d: "sadsdddaasd"
+
+
+We need to get the start indices of the anagrams
+
+Brute Force Solution: Check every substring with length of "s"
+
+
+Linear Time Solution: 
+
+s: "asd"
+
+d: "s  a  d  s  d  d  d  a  a  s  d"
+         p1    p2
+
+1) {a: 1, s: 1, d: 1}
+2) Iterate through d, until we reach length, keep track of the obj, if all values are 0, then we know that the series of characters is an anagram
+
+
+
+*/
+
+var findAnagrams = function (s, p) {
+  let hash = {},
+    uniqueChars = 0;
+  for (let c of p) {
+    if (hash[c] == null) {
+      uniqueChars++;
+      hash[c] = 1;
+    } else {
+      hash[c]++;
     }
   }
-}
+
+  let res = [];
+  let left = 0,
+    right = 0;
+  // this makes right iterate, we just need to change left
+  for (right; right < s.length; right++) {
+    if (hash[s[right]] != null) hash[s[right]]--;
+    if (hash[s[right]] === 0) uniqueChars--;
+    if (uniqueChars == 0) res.push(left);
+    if (right - left + 1 == p.length) {
+      if (hash[s[left]] != null) hash[s[left]]++;
+      if (hash[s[left++]] == 1) uniqueChars++;
+    }
+  }
+  return res;
+};

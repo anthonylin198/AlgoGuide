@@ -36,6 +36,35 @@ acd: false
 
 */
 
+// Find anagrams grind
+var findAnagrams = function (s, p) {
+  let hash = {},
+    uniqueChars = 0;
+  for (let c of p) {
+    if (hash[c] == null) {
+      uniqueChars++;
+      hash[c] = 1;
+    } else {
+      hash[c]++;
+    }
+  }
+
+  let res = [];
+  let left = 0,
+    right = 0;
+  // this makes right iterate, we just need to change left
+  for (right; right < s.length; right++) {
+    if (hash[s[right]] != null) hash[s[right]]--;
+    if (hash[s[right]] === 0) uniqueChars--;
+    if (uniqueChars == 0) res.push(left);
+    if (right - left + 1 == p.length) {
+      if (hash[s[left]] != null) hash[s[left]]++;
+      if (hash[s[left++]] == 1) uniqueChars++;
+    }
+  }
+  return res;
+};
+
 // time complexity: O(s * p)    space complexty: O(1)
 function findAnagrams(s, p) {
   // create the character counter for p {a:1, b:1, c:1}
