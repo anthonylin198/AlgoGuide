@@ -1,66 +1,72 @@
 /*
 
+Given a linked list, swap every two adjacent nodes and return its head.
 
-Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
-
-Strings consists of lowercase English letters only and the length of both strings s and p 
-will not be larger than 20,100.
-
-The order of output does not matter.
+You may not modify the values in the list's nodes. Only nodes itself may be changed.
 
 
-*/
 
-/*
+1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 
-s: "asd"
+2 -> 1 -> 4 -> 3 -> 6 -> 5 -> 7
 
-d: "sadsdddaasd"
+null -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
+ p
+null -> 2 -> 1 -> 3 -> 4 -> 5 -> 6 -> 7
+             p
 
+null -> 2 -> 1 -> 4 -> 3 -> 5 -> 6 -> 7
+                       p
+at any node
 
-We need to get the start indices of the anagrams
-
-Brute Force Solution: Check every substring with length of "s"
-
-
-Linear Time Solution: 
-
-s: "asd"
-
-d: "s  a  d  s  d  d  d  a  a  s  d"
-         p1    p2
-
-1) {a: 1, s: 1, d: 1}
-2) Iterate through d, until we reach length, keep track of the obj, if all values are 0, then we know that the series of characters is an anagram
-
+1) save access to 2
+2) point 1 to the 3 -- in order to do this, create new "prev node" starting at null
+3) point the 2 to the new 1
 
 
 */
 
-var findAnagrams = function (s, p) {
-  let hash = {},
-    uniqueChars = 0;
-  for (let c of p) {
-    if (hash[c] == null) {
-      uniqueChars++;
-      hash[c] = 1;
-    } else {
-      hash[c]++;
-    }
+class ListNode {
+  constructor(val) {
+    this.val = val;
+    this.next = null;
   }
 
-  let res = [];
-  let left = 0,
-    right = 0;
-  // this makes right iterate, we just need to change left
-  for (right; right < s.length; right++) {
-    if (hash[s[right]] != null) hash[s[right]]--;
-    if (hash[s[right]] === 0) uniqueChars--;
-    if (uniqueChars == 0) res.push(left);
-    if (right - left + 1 == p.length) {
-      if (hash[s[left]] != null) hash[s[left]]++;
-      if (hash[s[left++]] == 1) uniqueChars++;
+  print() {
+    const arr = [];
+    let head = this;
+    while (head) {
+      arr.push(head.val);
+      head = head.next;
     }
+    console.log(arr);
   }
-  return res;
-};
+}
+
+// null -> 1 -> 2 -> 3 -> 4 -> 5
+// swap the pairs
+function swapPairs(head) {
+  // create new
+  let prev = new ListNode(null);
+  prev.next = head;
+  let pointer = prev;
+  while (pointer.next && pointer.next.next) {
+    let first = pointer.next;
+    let second = pointer.next.next;
+    first.next = first.next.next;
+    second.next = first;
+    pointer.next = second;
+    pointer = pointer.next.next;
+  }
+  return prev.next;
+}
+
+const ll = new ListNode(1);
+ll.next = new ListNode(2);
+ll.next.next = new ListNode(3);
+ll.next.next.next = new ListNode(4);
+ll.next.next.next.next = new ListNode(5);
+
+swapPairs(ll).print();
+
+ll.print();
