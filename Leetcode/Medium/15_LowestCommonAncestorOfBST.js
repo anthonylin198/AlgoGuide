@@ -6,44 +6,54 @@ According to the definition of LCA on Wikipedia: “The lowest common ancestor i
 as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
 
 
+                         1
+                     2      3
+                  4     5      6
+                7  8
+
+              7 & 5
+
+
+
+
 */
 
-function lowestCommonAncestor(root, p, q) {
-  let closest = null;
-  function helper(root, p, q) {
-    if (!root) return;
-    const arr = dfs(root);
-    let pcheck = false;
-    let qcheck = false;
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] === p) pcheck = true;
-      if (arr[i] === q) qcheck = true;
-    }
-    if (pcheck && qcheck) {
-      closest = arr[0];
-    }
-    helper(root.left, p, q);
-    helper(root.right, p, q);
+class TreeNode {
+  constructor(val) {
+    this.val = val;
+    this.right = null;
+    this.left - null;
   }
-  helper(root, p, q);
-  return closest;
 }
-
-function dfs(root, arr = []) {
-  if (!root) return;
-  arr.push(root);
-  dfs(root.left, arr);
-  dfs(root.right, arr);
-  return arr;
-}
-
-// todo: Learn the leetcode solution
 
 const lowestCommonAncestor = (root, p, q) => {
-  if (!root || root === p || root === q) return root;
-  const left = lowestCommonAncestor(root.left, p, q);
+  if (!root || root === p || root === q) {
+    return root;
+  }
+  const left = lowestCommonAncestor(root.left, p, q); // 7
+  console.log("this is left", left);
   const right = lowestCommonAncestor(root.right, p, q);
+  console.log("this is right", right);
   if (!left) return right; // p and q are in the right subtree
   if (!right) return left; // p and q are in the left subtree
   return root; // p is in one side and q is in the other
 };
+
+const bst = new TreeNode(1);
+bst.left = new TreeNode(2);
+bst.right = new TreeNode(3);
+bst.left.left = new TreeNode(4);
+bst.left.right = new TreeNode(5);
+bst.right = new TreeNode(3);
+bst.right.right = new TreeNode(6);
+bst.left.left.left = new TreeNode(7);
+bst.left.left.right = new TreeNode(8);
+
+console.log(lowestCommonAncestor(bst, bst.left.right, bst.left.left.left));
+
+/*
+
+
+
+
+*/

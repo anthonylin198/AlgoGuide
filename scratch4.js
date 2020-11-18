@@ -1,80 +1,77 @@
 /*
 
+Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
 
-Implement a basic calculator to evaluate a simple expression string.
+According to the definition of LCA on Wikipedia: 
 
-The expression string contains only non-negative integers, +, -, *, / operators and empty spaces . The integer division should truncate toward zero.
+“The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
 
 
 */
 
 /*
-Input: "3+2*3*4-10/5+1"
-Output: 7
 
-keep a variable that will keep track of the sign
+Solution: Go through the bst, perform depth first search, and see if we can see both nodes. We must return the deepest level where both the nodes we are looking for exists
+Can be a node of itself
 
-keep and array to store values 
-[3]
-[3, 2]
-[3, 6]
-[3, 24]
-[3, 24, -10]
-[3, 24, -2]
-[3, 24, -2, 1]
+                         1
+                      2      3
+                  4     5      6
+                7  8
+
+                7 & 5
+
+Solution: At each node, perform DFS and see if we can have bot the nodes. We would then want to return the deepest node that does have both. Keeping track of the level
 
 
-Iterate through the string input, if we hit a number,  we push to the arr
+                         1
+                     2      3
+                  4     5      6
+                7  8
 
-If we get addition or subtraction, we know we can continue through without looking back
-If we get multiplication or division, we need to keep overwriting the value in our array
+              7 & 5
+
+
+Perform DFS, after we both the target nodes are hit
+
+
+1 -> 2 -> 4 -> 7 (returned) 
+
+
+
 
 
 */
 
-// doesn't quite work, MAKE SURE TO GET THE ENTIRE NUMBER FIRST
-function calculate(s) {
-  // create arr to store numbers
-  const arr = [];
-  let operation = null;
-
-  // iterate through s
-  for (let i = 0; i < s.length; i++) {
-    console.log(arr);
-    // get next valid character
-    if (s[i] === " ") {
-      continue;
-    }
-    // if the value is a symbol
-    if (s[i] === "+" || s[i] === "/" || s[i] === "*" || s[i] === "-") {
-      operation = s[i];
-    } else {
-      if (operation === "+" || !operation) {
-        arr.push(Number(s[i]));
-      }
-      if (operation === "number") {
-        arr[arr.length - 1] =
-          arr[arr.length - 1] > 0
-            ? arr[arr.length - 1] * 10 + Number(s[i])
-            : arr[arr.length - 1] * 10 - Number(s[i]);
-      }
-      if (operation === "-") {
-        arr.push(Number(s[i]) * -1);
-      }
-      if (operation === "*") {
-        arr[arr.length - 1] = arr[arr.length - 1] * Number(s[i]);
-      }
-      if (operation === "/") {
-        arr[arr.length - 1] = Math.floor(arr[arr.length - 1] / Number(s[i]));
-      }
-      operation = "number";
-    }
+class TreeNode {
+  constructor(val) {
+    this.val = val;
+    this.right = null;
+    this.left - null;
   }
-
-  let sum = 0;
-  for (let i = 0; i < arr.length; i++) {
-    sum += arr[i];
-  }
-  return sum;
 }
-console.log(calculate("0-2131231"));
+
+const lowestCommonAncestor = (root, p, q) => {
+  if (!root || root === p || root === q) {
+    return root;
+  }
+  const left = lowestCommonAncestor(root.left, p, q); // 7
+  console.log("this is left", left);
+  const right = lowestCommonAncestor(root.right, p, q);
+  console.log("this is right", right);
+  if (!left) return right; // p and q are in the right subtree
+  if (!right) return left; // p and q are in the left subtree
+  return root; // p is in one side and q is in the other
+};
+
+const bst = new TreeNode(1);
+bst.left = new TreeNode(2);
+bst.right = new TreeNode(3);
+bst.left.left = new TreeNode(4);
+bst.left.right = new TreeNode(5);
+bst.right = new TreeNode(3);
+bst.right.right = new TreeNode(6);
+bst.left.left.left = new TreeNode(7);
+bst.left.left.right = new TreeNode(8);
+
+console.log(lowestCommonAncestor(bst, bst.left.right, bst.left.left.left));
