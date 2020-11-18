@@ -46,6 +46,32 @@ switch = left
         [[1], [3,2] , [4,5], [7,6]
   */
 
+//todo: our solution
+
+function zigzagLevelOrder(root) {
+  if (!root) return [];
+  let isOdd = true;
+  const results = [];
+  const q = [root];
+
+  while (q.length) {
+    const level = [];
+    const currentLength = q.length;
+    for (let i = 0; i < currentLength; i++) {
+      const currentNode = q.shift();
+      if (isOdd) level.push(currentNode.val);
+      else level.unshift(currentNode.val);
+      // push on the children
+      if (currentNode.left) q.push(currentNode.left);
+      if (currentNode.right) q.push(currentNode.right);
+    }
+    if (isOdd) isOdd = false;
+    else isOdd = true;
+    results.push(level);
+  }
+  return results;
+}
+
 // todo : Leetcode clean Solution
 
 var zigzagLevelOrder = function (root) {

@@ -58,3 +58,49 @@ function calculate(s) {
 }
 
 console.log(calculate("12+2+3+4*5"));
+
+// doesn't quite work, MAKE SURE TO GET THE ENTIRE NUMBER FIRST
+function calculate(s) {
+  // create arr to store numbers
+  const arr = [];
+  let operation = null;
+
+  // iterate through s
+  for (let i = 0; i < s.length; i++) {
+    console.log(arr);
+    // get next valid character
+    if (s[i] === " ") {
+      continue;
+    }
+    // if the value is a symbol
+    if (s[i] === "+" || s[i] === "/" || s[i] === "*" || s[i] === "-") {
+      operation = s[i];
+    } else {
+      if (operation === "+" || !operation) {
+        arr.push(Number(s[i]));
+      }
+      if (operation === "number") {
+        arr[arr.length - 1] =
+          arr[arr.length - 1] > 0
+            ? arr[arr.length - 1] * 10 + Number(s[i])
+            : arr[arr.length - 1] * 10 - Number(s[i]);
+      }
+      if (operation === "-") {
+        arr.push(Number(s[i]) * -1);
+      }
+      if (operation === "*") {
+        arr[arr.length - 1] = arr[arr.length - 1] * Number(s[i]);
+      }
+      if (operation === "/") {
+        arr[arr.length - 1] = Math.floor(arr[arr.length - 1] / Number(s[i]));
+      }
+      operation = "number";
+    }
+  }
+
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
+  return sum;
+}

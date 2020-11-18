@@ -1,105 +1,80 @@
 /*
 
-Given a binary tree, return the zigzag level order traversal of its nodes' values. (ie, from left to right, then right to left for the next level and alternate between).
 
-For example:
-Given binary tree [3,9,20,null,null,15,7],
+Implement a basic calculator to evaluate a simple expression string.
 
-[
-[3],
-[20,9],
-[15,7]
+The expression string contains only non-negative integers, +, -, *, / operators and empty spaces . The integer division should truncate toward zero.
 
-]
-
-         1
-       2   3
-     4  5 6  7  
-            8  9
-                10
-
-  [1,3,2,4,5,6,7,9,8,10]
-
-  [2,3]
-
-  q:  [1]                 shift
-      [2, 3]              pop and push
-      [4, 5, 6, 7]       shift and push
-      [8, 9]              pop and push  
-      10                  shift and push
-
-  [1,3,2,4,5,6,7,8,7,10]
-
-
-          1
-        2   3
-      4       5   [1,3,2,4,5]
-
-      q: [1]  shift    odd
-        [2,3] pop      even
-        [5,4] pop      odd
-
-
-       q:  [1, 2, 3, 4, 5]
-            unshift   push
-        [[1], [3,2], [4,5]  ]
-
-
-        
 
 */
 
 /*
+Input: "3+2*3*4-10/5+1"
+Output: 7
 
-1
+keep a variable that will keep track of the sign
+
+keep and array to store values 
+[3]
+[3, 2]
+[3, 6]
+[3, 24]
+[3, 24, -10]
+[3, 24, -2]
+[3, 24, -2, 1]
+
+
+Iterate through the string input, if we hit a number,  we push to the arr
+
+If we get addition or subtraction, we know we can continue through without looking back
+If we get multiplication or division, we need to keep overwriting the value in our array
 
 
 */
-function zigzagLevelOrder(root) {
-  if (!root) return [];
-  let isOdd = true;
-  const results = [];
-  const q = [root];
 
-  while (q.length) {
-    const level = [];
-    const currentLength = q.length;
-    for (let i = 0; i < currentLength; i++) {
-      const currentNode = q.shift();
-      if (isOdd) level.push(currentNode.val);
-      else level.unshift(currentNode.val);
-      // push on the children
-      if (currentNode.left) q.push(currentNode.left);
-      if (currentNode.right) q.push(currentNode.right);
+// doesn't quite work, MAKE SURE TO GET THE ENTIRE NUMBER FIRST
+function calculate(s) {
+  // create arr to store numbers
+  const arr = [];
+  let operation = null;
+
+  // iterate through s
+  for (let i = 0; i < s.length; i++) {
+    console.log(arr);
+    // get next valid character
+    if (s[i] === " ") {
+      continue;
     }
-    if (isOdd) isOdd = false;
-    else isOdd = true;
-    results.push(level);
+    // if the value is a symbol
+    if (s[i] === "+" || s[i] === "/" || s[i] === "*" || s[i] === "-") {
+      operation = s[i];
+    } else {
+      if (operation === "+" || !operation) {
+        arr.push(Number(s[i]));
+      }
+      if (operation === "number") {
+        arr[arr.length - 1] =
+          arr[arr.length - 1] > 0
+            ? arr[arr.length - 1] * 10 + Number(s[i])
+            : arr[arr.length - 1] * 10 - Number(s[i]);
+      }
+      if (operation === "-") {
+        arr.push(Number(s[i]) * -1);
+      }
+      if (operation === "*") {
+        arr[arr.length - 1] = arr[arr.length - 1] * Number(s[i]);
+      }
+      if (operation === "/") {
+        arr[arr.length - 1] = Math.floor(arr[arr.length - 1] / Number(s[i]));
+      }
+      operation = "number";
+    }
   }
-  return results;
+
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
+  return sum;
 }
-
-// this does not catch all the edge cases
-var zigzagLevelOrder = function (root) {
-  if (!root) return [];
-  let queue = [root];
-  let output = [];
-  let deep = 0;
-  while (queue.length > 0) {
-    const size = queue.length;
-    const level = [];
-
-    for (let i = 0; i < size; i++) {
-      const node = queue.shift();
-      if (deep % 2 == 0) level.push(node.val);
-      else level.unshift(node.val);
-
-      if (node.left) queue.push(node.left);
-      if (node.right) queue.push(node.right);
-    }
-    output.push(level);
-    deep++;
-  }
-
-  return output;
-};
+console.log(calculate("0-2131231"));
