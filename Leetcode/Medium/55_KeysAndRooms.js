@@ -18,7 +18,8 @@ Return true if and only if you can enter every room. -- find if we can visit eve
 [
   [1],
   [2],
-  [3]
+  [3],
+  []
 ]
 
           0 - 1 - 2 - 3
@@ -36,22 +37,44 @@ Return true if and only if you can enter every room. -- find if we can visit eve
 
                           2
   
+visited: {}
+stack: [0,1,3] 
 
-Keep track of visited rooms
 
-{0: true, }
+since order doesn't matter, we could just pop instead of shifting
 
 */
 
-var canVisitAllRooms = function (rooms) {
+// DFS approach - see if we can visit every room from starting point
+function canVisitAllRooms(rooms) {
   const visitedRoom = {};
-  const dfs = (index) => {
-    if (visitedRoom[index]) return; // we already visited
+  function dfs(index) {
+    if (visitedRoom[index]) return;
     visitedRoom[index] = true;
     rooms[index].forEach((key) => {
       dfs(key);
     });
-  };
+  }
   dfs(0);
-  return Object.keys(visitedRoom).length === rooms.length; // checking the length
+  return Object.keys(visitedRoom).length === rooms.length;
+}
+
+const rooms = [[1], [2], [3], []];
+console.log(canVisitAllRooms(rooms));
+
+// BFS technique
+var canVisitAllRooms3 = function (rooms) {
+  const stack = [0];
+  const visitedRoom = { 0: true };
+  while (stack.length) {
+    const currRoom = stack.pop();
+    rooms[currRoom].forEach((key) => {
+      if (!visitedRoom[key]) stack.push(key);
+      visitedRoom[key] = true;
+    });
+  }
+  return Object.keys(visitedRoom).length === rooms.length;
 };
+
+const rooms2 = [[1], [2], [3], []];
+console.log(canVisitAllRooms3(rooms2));
