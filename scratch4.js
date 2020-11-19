@@ -18,7 +18,8 @@ Return true if and only if you can enter every room. -- find if we can visit eve
 [
   [1],
   [2],
-  [3]
+  [3],
+  []
 ]
 
           0 - 1 - 2 - 3
@@ -36,22 +37,61 @@ Return true if and only if you can enter every room. -- find if we can visit eve
 
                           2
   
+visited: {}
+stack: [0,1,3] 
 
-Keep track of visited rooms
 
-{0: true, }
+since order doesn't matter, we could just pop instead of shifting
 
 */
 
-var canVisitAllRooms = function (rooms) {
-  const visitedRoom = {};
-  const dfs = (index) => {
-    if (visitedRoom[index]) return; // we already visited
-    visitedRoom[index] = true;
-    rooms[index].forEach((key) => {
-      dfs(key);
-    });
-  };
+/*
+
+dfs solution: we know we start from index 0, so would keep track of the visited, and iterate through. If we reach a cycle repeat visited, before we have visited all, we know is false
+
+
+visited: {0: true, 1: true, 2: true, 3: true}
+-- if we hit the length, then we are good
+[
+  [1,2,3],
+  [2],
+  [3],
+  [5]
+]
+
+
+*/
+
+function roomVisits(arr) {
+  const visited = {};
+  function dfs(index) {
+    if (visited[index]) {
+      return;
+    }
+    visited[index] = true;
+    for (let i = 0; i < arr[index].length; i++) {
+      dfs(arr[index][i]);
+    }
+  }
   dfs(0);
-  return Object.keys(visitedRoom).length === rooms.length; // checking the length
-};
+  return Object.keys(visited).length === arr.length;
+}
+
+// bfs
+function canVisitAllRooms(rooms) {
+  const visited = {};
+  const stack = [0];
+  while (stack.length) {
+    let currentIndex = stack.pop();
+    visited[currentIndex] = true;
+    for (let i = 0; i < rooms[currentIndex].length; i++) {
+      // if we don't do this, we might push into an infinite cycle
+      if (!visited[rooms[currentIndex][i]]) {
+        stack.push(rooms[currentIndex][i]);
+      }
+    }
+  }
+  return Object.keys(visited).length === rooms.length;
+}
+
+console.log(roomVisits([[1], [2], [3], []]));
